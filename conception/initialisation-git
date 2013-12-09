@@ -31,11 +31,14 @@ $ git add le_fichier
 Ensuite on fait un commit:
 $ git commit -m "Le message du commit"
 IMPORTANT : n'oubliez pas de mettre un message clair à chaque commit, c'est très pratique pour la suite
+Pour récupérer les modifications de quelqu'un d'autre, tout simplement (à faire avant chaque push):
+$ git pull
 Maintenant on peut mettre à jour le dépôt git général à partir du notre:
 $ git push origin master
-Pour récupérer les modifications de quelqu'un d'autre, tout simplement:
-$ git pull
+Il vous demande votre pseudo et mot de passe
+On peut avoir des problèmes de synchronisation si deux personnes modifient le même fichier en même temps
+il vous demandera alors de fusionner deux commit
 
-Si une erreur survient demandez moi (on peut aussi avoir des problèmes de synchronisation si deux personnes modifient le même fichier en même temps)
+Si une erreur survient demandez moi
 
 Christophe
