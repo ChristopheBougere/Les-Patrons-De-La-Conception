@@ -1,0 +1,35 @@
+Étapes à suivre pour pouvoir utiliser le git du projet (dans un premier temps sur vos pc avec une vraie connexion internet, on verra pour le pc de l'ensi après):
+
+== INSTALLATION ==
+Si git n'est pas installé:
+$ sudo apt-get install git
+
+== CONFIGURATION ==
+Une fois que git est installé, configuration (pensez à remplacer par vos PrenomNom et emails, les mêmes que pour votre inscription à github): 
+git config --global user.name "PrenomNom"
+git config --global user.email prenom.nom@ecole.ensicaen.fr
+Ensuite on donne nos clés ssh:
+$ ssh-keygen
+Appuyez sur entrée 3 fois sans rien saisir, puis faites
+$ cat ~/.ssh/id_rsa.pub
+copiez le contenu du fichier, allez dans account setting sur github, ssh keys, add ssh key, donnez lui un nom et copiez la clé dedans
+
+== RÉCUPERATION  DU DÉPÔT ==
+Maintenant, git est configuré, on peut récupérer le dépôt:
+$ cd ~ 
+(on peut aussi aller dans un autre dossier)
+$ git clone git@github.com:ChristopheBougere/Les-Patrons-De-La-Conception.git
+$ cd Les-Patrons-De-La-Conception
+Normalement on a récupérer tout le contenu du git:
+$ ls
+bin  conception  README.md  src
+
+== UTILISATION ==
+On peut ajouter des fichiers à mettre à jour au prochain commit avec:
+$ git add le_fichier
+(fonctionne aussi avec un dossier)
+Ensuite on fait un commit:
+$ git commit -m "Le message du commit"
+IMPORTANT : n'oubliez pas de mettre un message clair à chaque commit, c'est très pratique pour la suite
+Maintenant on peut mettre à jour le dépôt git général à partir du notre:
+$ git push origin master
