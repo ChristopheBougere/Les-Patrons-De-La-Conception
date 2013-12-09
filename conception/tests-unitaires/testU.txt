@@ -1,0 +1,33 @@
+Liste Des tests Unitaires à réaliser :
+
+	1-Test du type de voiture : 
+			Pour les bornes automatiques et les bornes de télépéage on doit s'assurer qu'il y a que les voitures qui passent 			      vu que le gabarit ne permet pas aux camions de passer. 
+			Dans le cas d'un véhicule spécial, permettre a ces véhicules de passer gratuitement.
+	
+	2-Test du temps minimun entre deux passage : 
+			Dans le cas d'un passage avec un même badge on doit s'assurer que le temps minimum de 				
+                     réutilisation du badge a été bien réspecté 
+
+	3-Test du moyen de paiement :
+			On doit s'assuer que le moyen de paiement choisi est bien celui qui a été éffectué.
+
+	4-Test de la carte d'abonnement:
+			Lors de la détection d'un badge, On doit vérifier que la borne a bien demandé un accord de paiement au site central.
+
+	5-Rapports:
+			On doit vérifier qu'après chaque passage d'un véhicule, un rapport a été envoyé au supérviseur de cette barrière.
+			Après chaque déclanchement d'alarme, un rapport doit être envoyé. 
+
+	6-Trafic: 
+			Lorsque le trafic est important, on doit avoir la possiblité d'ouvrir de nouvelles voies.
+			Quand le trafic est trop faible , on doit s'assuer qu'il y a au moins une voie ouvertes.
+
+	7-Tests de déclanchement de l'alarme dans ces cas  :	
+			Lorsqu'un conducteur/guichetier appuie sur le bouton alarm.
+			La borne signale que sa barrière aval ne se lève pas.
+			Lors de passage de plusieurs véhicule pour un seul paiement effectué, la sonnerie doit se déclancher.
+			En cas de refus d'accord de paiement par carte d'abonnement du site central.
+			En cas de manque de monnaie dans les machines de paiement. 
+					  
+
+	
