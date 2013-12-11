@@ -22,7 +22,7 @@ copiez le contenu du fichier, allez dans account setting sur github, ssh keys, a
 Maintenant, git est configuré, on peut récupérer le dépôt:
 $ cd ~ 
 (on peut aussi aller dans un autre dossier)
-$ git clone git@github.com:ChristopheBougere/Les-Patrons-De-La-Conception.git
+$ git clone https://github.com/ChristopheBougere/Les-Patrons-De-La-Conception.git
 $ cd Les-Patrons-De-La-Conception
 Normalement on a récupérer tout le contenu du git:
 $ ls
