@@ -1,13 +1,17 @@
 Étapes à suivre pour pouvoir utiliser le git du projet (dans un premier temps sur vos pc avec une vraie connexion internet, on verra pour le pc de l'ensi après):
 
-== INSTALLATION ==
+== INSTALLATION == (Inutile à sur les pc du bat E)
 Si git n'est pas installé:
 $ sudo apt-get install git
 
 == CONFIGURATION ==
 Une fois que git est installé, configuration (pensez à remplacer par vos PrenomNom et emails, les mêmes que pour votre inscription à github): 
-git config --global user.name "PrenomNom"
-git config --global user.email prenom.nom@ecole.ensicaen.fr
+$ git config --global user.name "PrenomNom"
+$ git config --global user.email prenom.nom@ecole.ensicaen.fr
+
+À faire sur les pc du bat E:
+$ git config --global http.proxy 193.49.200.22:3128
+
 Ensuite on donne nos clés ssh:
 $ ssh-keygen
 Appuyez sur entrée 3 fois sans rien saisir, puis faites
