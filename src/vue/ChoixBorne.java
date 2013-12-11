@@ -31,7 +31,6 @@ public class ChoixBorne extends JFrame {
 		L_nbTelepeage = new JLabel("Nombre de bornes télépéage : ");
 		L_nbAutomatiques = new JLabel("Nombre de bornes automatiques : ");
 		
-		// Utiliser Spinner
 		S_nbManuelles = new JSpinner();
 		JSpinner.NumberEditor NE_nbManuelles = new JSpinner.NumberEditor(S_nbManuelles);
 		S_nbManuelles.setEditor(NE_nbManuelles);
