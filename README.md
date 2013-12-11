@@ -9,3 +9,6 @@ Projet en 2A INFO à l'ENSICAEN
 - Yahia El Mejjad
 - Baraa Elyoussefi
 - Walid Ibarbachen
+
+Pour cloner le dépôt git, suivre la procédure suivante:
+https://github.com/ChristopheBougere/Les-Patrons-De-La-Conception/blob/master/conception/initialisation-git
