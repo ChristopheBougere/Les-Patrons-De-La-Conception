@@ -83,4 +83,8 @@ public class ChoixBorne extends JFrame {
 		this.setVisible(true);
 		
 	}
+
+	public JButton getB_suivant() {
+		return B_suivant;
+	}
 }
