@@ -15,6 +15,11 @@ import javax.swing.JTextField;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * 
+ * @author Christophe Bougère
+ *
+ */
 public class ChoixBorne extends JFrame {
 	
 	private JLabel L_choix, L_nbManuelles, L_nbTelepeage, L_nbAutomatiques;
@@ -80,6 +85,7 @@ public class ChoixBorne extends JFrame {
 		getContentPane().add(B_suivant);
 		
 		this.pack();
+		this.setSize(400, 200);
 		this.setVisible(true);
 		
 	}

@@ -15,6 +15,11 @@ import javax.swing.JSpinner;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+/**
+ * 
+ * @author Christophe Bougère
+ *
+ */
 public class ChoixFlux extends JFrame implements ActionListener, ChangeListener {
 	private JLabel L_choix, L_pVoitures, L_pCamions, L_pBus, L_pCaravanes, L_pMotos, L_flux, L_erreurSomme;
 	private JSpinner S_pVoitures, S_pCamions, S_pBus, S_pCaravanes, S_pMotos, S_flux;
@@ -142,6 +147,7 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 		getContentPane().add(P_boutons);
 		
 		this.pack();
+		this.setSize(400, 500);
 		this.setVisible(true);
 		
 	}
