@@ -1,3 +1,4 @@
+package modele;
 
 public class Feu {
 	private boolean _estRouge;

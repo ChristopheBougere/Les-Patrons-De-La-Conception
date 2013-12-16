@@ -7,7 +7,7 @@ package modele;
  */
 public class BorneManuelle extends Borne {
 	public BorneManuelle(int numeroVoie) {
-		super();
+		super(numeroVoie);
 	}
 
 }

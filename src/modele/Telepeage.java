@@ -6,7 +6,7 @@ package modele;
  *
  */
 public class Telepeage extends BorneGabarit {
-	public Telepeage() {
-		super();
+	public Telepeage(int numeroVoie) {
+		super(numeroVoie);
 	}
 }

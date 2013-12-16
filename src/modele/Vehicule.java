@@ -1,5 +1,7 @@
 package modele;
 
+import controleur.VehiculeListener;
+
 /**
  * 
  * @author IBARBACHANE Walid
@@ -11,6 +13,7 @@ public abstract class Vehicule {
 	protected boolean _peutPayer;
 	protected int _numeroVoie;
 	protected int _typePaiement;
+	protected VehiculeListener _vehiculeListener;
 	
 	
 	public static final int CARTE_PAIEMENT=3;

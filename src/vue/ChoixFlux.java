@@ -148,7 +148,6 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 		
 		this.pack();
 		this.setSize(400, 500);
-		this.setVisible(true);
 		
 	}
 
@@ -197,5 +196,29 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 			B_suivant.setEnabled(true);
 			L_erreurSomme.setText("");
 		}
+	}
+	
+	public int getpVoitures() {
+		return (int)S_pVoitures.getValue();
+	}
+	
+	public int getpCamions() {
+		return (int)S_pCamions.getValue();
+	}
+	
+	public int getpBus() {
+		return (int)S_pBus.getValue();
+	}
+	
+	public int getpCaravanes() {
+		return (int)S_pCaravanes.getValue();
+	}
+	
+	public int getpMotos() {
+		return (int)S_pMotos.getValue();
+	}
+	
+	public int getFlux() {
+		return (int)S_flux.getValue();
 	}
 }

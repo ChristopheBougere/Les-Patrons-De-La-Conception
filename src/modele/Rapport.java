@@ -1,5 +1,6 @@
-import java.sql.Date;
+package modele;
 
+import java.util.Date;
 
 public class Rapport {
 	private int _typeVehicule; 

@@ -86,11 +86,22 @@ public class ChoixBorne extends JFrame {
 		
 		this.pack();
 		this.setSize(400, 200);
-		this.setVisible(true);
 		
 	}
 
 	public JButton getB_suivant() {
 		return B_suivant;
+	}
+	
+	public int getNbMannuelles() {
+		return (int)S_nbManuelles.getValue();
+	}
+	
+	public int getNbAutomatiques() {
+		return (int)S_nbAutomatiques.getValue();
+	}
+	
+	public int getNbTelepeages() {
+		return (int)S_nbTelepeage.getValue();
 	}
 }

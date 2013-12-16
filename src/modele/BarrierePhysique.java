@@ -1,3 +1,4 @@
+package modele;
 
 public class BarrierePhysique {
 	private boolean _estLevee;

@@ -6,7 +6,7 @@ package modele;
  *
  */
 public class BorneAutomatique extends BorneGabarit {
-	public BorneAutomatique() {
-		super();
+	public BorneAutomatique(int numeroVoie) {
+		super(numeroVoie);
 	}
 }

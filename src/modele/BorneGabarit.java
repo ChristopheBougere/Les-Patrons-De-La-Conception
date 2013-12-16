@@ -6,7 +6,7 @@ package modele;
  *
  */
 public abstract class BorneGabarit extends Borne {
-	public BorneGabarit() {
-		super();
+	public BorneGabarit(int numeroVoie) {
+		super(numeroVoie);
 	}
 }

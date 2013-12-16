@@ -5,10 +5,10 @@
  * */
 
 package controleur;
-import modele.Alarme;
+import modele.AlarmeEvent;
 import java.util.EventListener;
 
 public interface AlarmeListener extends EventListener {
-	void alarmeDeclenchee(Alarme a);
+	void alarmeDeclenchee(AlarmeEvent a);
 }
 
