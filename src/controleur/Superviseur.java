@@ -2,6 +2,8 @@ package controleur;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.SwingUtilities;
+
 import modele.AlarmeEvent;
 import modele.Borne;
 import modele.Parametre;
@@ -50,7 +52,7 @@ public class Superviseur implements AlarmeListener  {
 	}
 
 	public void ouvrirVoie(TypeBorne t) throws Exception{
-		Borne voie = new Borne(_voies.size(), t);
+		Borne voie = new Borne(_voies.size(), t, _p);
 
 		voie.addAlarmeListener(this);
 		_voies.add(voie);
@@ -61,9 +63,29 @@ public class Superviseur implements AlarmeListener  {
 		_voies.remove(voie);
 	}
 	
+	/**
+	 * 
+	 * @param numeroVoie
+	 * @return La borne n° numeroVoie
+	 */
+	public Borne getBorne(int numeroVoie) {
+		return _voies.get(numeroVoie);
+	}
+	
+	/**
+	 * Affiche une fenêtre d'alarme avec son message lorsque celle-ci est déclenchée
+	 */
 	@Override
 	public void alarmeDeclenchee(AlarmeEvent e) {
-		new FenetreAlarme(e.getMessage());
+		final AlarmeEvent cpy = e;
+		SwingUtilities.invokeLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				new FenetreAlarme(cpy.getMessage());		
+			}
+		});
+		
 	}
 	
 	public Parametre getParametres() {

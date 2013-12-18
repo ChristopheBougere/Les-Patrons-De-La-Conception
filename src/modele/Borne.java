@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Random;
 
 import modele.AlarmeEvent.TypeAlarme;
+import modele.VehiculeEvent.TypeVehicule;
 
 import controleur.AlarmeListener;
 import controleur.VehiculeListener;
@@ -18,28 +19,31 @@ public class Borne implements VehiculeListener {
 	protected int _numeroVoie;
 	protected BarrierePhysique _barriere;
 	protected Feu _feu;
-	protected Rapport _rapport;
 	protected Vehicule _vehicules;
 	protected int _compteurVehicules;
 	protected VehiculeListener _vehiculeListener = null;
 	protected boolean _nouvelleVoiture;
 	protected AlarmeListener _alarmeListener;
 	protected TypeAlarme _alarme;
-	protected final int _alea = 10;
-	private TypeBorne _t;
+	private TypeBorne _typeBorne;
+	private final int _alea = 10;
+	private Parametre _p;
 	
 	public enum TypeBorne {
 	    MANUELLE, AUTOMATIQUE, TELEPEAGE
 	}
 	
-	public Borne(int numeroVoie, TypeBorne t) {
+	public Borne(int numeroVoie, TypeBorne typeBorne, Parametre p) {
 		_numeroVoie = numeroVoie;
 		_barriere = new BarrierePhysique();
 		_feu = new Feu();
-		_rapport = new Rapport();
 		_nouvelleVoiture = false;
 		_compteurVehicules = 0;
-		_t = t;
+		_typeBorne = typeBorne;
+		_p = p;
+		UsineVehicules u = new UsineVehicules(_p);
+		u.addVehiculeListener(this);
+		u.start();
 	}
 	
 	public int getFluxVehicule() {
@@ -54,7 +58,6 @@ public class Borne implements VehiculeListener {
 		return _numeroVoie;
 	}
 	
-	
 	public void addAlarmeListener(AlarmeListener l) {
 		if (_alarmeListener == null) {
 			_alarmeListener = l;
@@ -67,22 +70,30 @@ public class Borne implements VehiculeListener {
 		}
 	}
 	
-	private void declencherAlarme(TypeAlarme alarme) {
+	public void declencherAlarme(TypeAlarme typeAlarme) {
 		if (_alarmeListener != null) {
-			AlarmeEvent evt = new AlarmeEvent(this, alarme);
+			AlarmeEvent evt = new AlarmeEvent(this, typeAlarme);
 			_alarmeListener.alarmeDeclenchee(evt);
 		}
 	}
 	
+	public TypeBorne getType() {
+		return _typeBorne;
+	}
+	
+	/**
+	 * Procédure de paiement et de passage d'un véhicule
+	 */
 	@Override
-	public synchronized void gererVehicule(VehiculeEvent evt) {
+	public synchronized void gererVehicule(VehiculeEvent vehicule) {
 		try {
 			Thread.sleep(2000);
 			if (new Random().nextInt(_alea) == _alea - 1) {
 				declencherAlarme(TypeAlarme.REFUS_PAIEMENT);
 			} else {
-				_rapport.faireRapport(evt.getType(), _numeroVoie, new Date(), 0, _t);
-				System.out.println("Vehicule passé");
+				Rapport r = new Rapport(vehicule.typeVehicule(), _numeroVoie,
+						new Date(), 0, _typeBorne);
+				System.out.println(r);
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();

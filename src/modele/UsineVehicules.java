@@ -1,5 +1,9 @@
 package modele;
 
+import java.util.Random;
+
+import com.sun.org.apache.bcel.internal.generic.Type;
+
 import modele.VehiculeEvent.TypeVehicule;
 import controleur.VehiculeListener;
 
@@ -28,39 +32,39 @@ public class UsineVehicules extends java.lang.Thread {
 			_vehiculeListener = null;
 		}
 	}	
-	
+
 	/**
-	 * 
-	 * @param percent Le pourcentage de véhicules
-	 * @return
+	 * Envoie des VehiculeEvent selon les paramètres (variable p)
 	 */
-	private int numberOfVehicules(int percent) {
-		return _p.flux * percent / 100;
-	}
-	
 	@Override
 	public void run() {
-		if (_vehiculeListener != null) {
-			for (int i = 0; i < numberOfVehicules(_p.pourcentVoitures) ; i++) {
-				VehiculeEvent evt = new VehiculeEvent(this, TypeVehicule.VOITURE);
-				_vehiculeListener.gererVehicule(evt);
-			}
-			for (int i = 0; i < numberOfVehicules(_p.pourcentBus); i++) {
-				VehiculeEvent evt = new VehiculeEvent(this, TypeVehicule.BUS);
-				_vehiculeListener.gererVehicule(evt);
-			}
-			for (int i = 0; i < numberOfVehicules(_p.pourcentCamions); i++) {
-				VehiculeEvent evt = new VehiculeEvent(this, TypeVehicule.CAMION);
-				_vehiculeListener.gererVehicule(evt);
-			}
-			for (int i = 0; i < numberOfVehicules(_p.pourcentCaravanes); i++) {
-				VehiculeEvent evt = new VehiculeEvent(this, TypeVehicule.CARAVANE);
-				_vehiculeListener.gererVehicule(evt);
-			}
-			for (int i = 0; i < numberOfVehicules(_p.pourcentMotos); i++) {
-				VehiculeEvent evt = new VehiculeEvent(this, TypeVehicule.MOTO);
-				_vehiculeListener.gererVehicule(evt);
+		while (true) {
+			if (_vehiculeListener != null) {
+				try {
+					Random r = new Random();
+					
+					int tab[] = new int[] { _p.nbVoitures + _p.nbBus + _p.nbCamions
+							+ _p.nbCaravanes + _p.nbMotos,
+							_p.nbVoitures, _p.nbBus, _p.nbCamions, _p.nbCaravanes, _p.nbMotos };
+					while (tab[0] != 0) {
+						TypeVehicule typeVehicule = TypeVehicule.getRandom();
+						VehiculeEvent evt = new VehiculeEvent(this, typeVehicule, r.nextInt(_p.nbVoies));
+						_vehiculeListener.gererVehicule(evt);
+						Thread.sleep(60000 / _p.flux);
+						tab[0]--;
+						switch (typeVehicule) {
+						case VOITURE: tab[1]--; break;
+						case BUS: tab[2]--; break;
+						case CAMION: tab[3]--; break;
+						case CARAVANE: tab[4]--; break;
+						case MOTO: tab[5]--; break;
+						}
+					}
+				} catch (InterruptedException e) {
+					e.getStackTrace();
+				}
 			}
 		}
 	}
+	
 }

@@ -20,21 +20,12 @@ public class AlarmeEvent extends EventObject {
 		return _message;
 	}
 
-	public AlarmeEvent(Object source, TypeAlarme t) {
+	public AlarmeEvent(Object source, TypeAlarme typeAlarme) {
 		super(source);
-		switch(t) {
-		case BOUTON: _message = "Alarme bouton";
-		break;
-		case PLUS_DE_MONNAIE: _message = "Plus de monnaie";
-		break;
-		case PLUSIEURS_VEHICULES: _message = "Plusieurs vehicules";
-		break;
-		case REFUS_PAIEMENT: _message = "Refus paiement";
-		break;
-		case BARRIERE: _message = "Barrière";
-		break;
-		default: _message = "Alarme";
-		}
+		_message = typeAlarme.toString().toLowerCase();
+		Borne voie = (Borne)source;
+		_message += " à la borne n° " + voie.getNumeroVoie();
+		_message += " (" + voie.getType().toString().toLowerCase() + ")";
 	}
 
 }

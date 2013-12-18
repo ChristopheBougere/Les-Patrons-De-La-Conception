@@ -2,9 +2,16 @@ package controleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.Random;
 
+import modele.Borne;
 import modele.Parametre;
+import modele.Rapport;
 import modele.UsineVehicules;
+import modele.VehiculeEvent;
+import modele.AlarmeEvent.TypeAlarme;
+import modele.Borne.TypeBorne;
 
 import vue.ChoixBorne;
 import vue.ChoixFlux;
@@ -36,8 +43,6 @@ public class Main implements ActionListener {
 		_f = new Fenetre();
 		_f.getB_parametres().addActionListener(this);
 		_f.setLocationRelativeTo(null);
-		
-		new UsineVehicules(_s.getParametres());
 	}
 
 	@Override
@@ -55,6 +60,7 @@ public class Main implements ActionListener {
 			_f.razBornes();
 			_f.setVisible(true);
 			_s = new Superviseur(p, _f);
+
 		} else if (e.getSource() == _f.getB_parametres()) {
 			_f.setVisible(false);
 			_cb.setVisible(true);
