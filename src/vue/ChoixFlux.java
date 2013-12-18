@@ -30,6 +30,7 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 	
 	public ChoixFlux() {
 		super("Choix des flux");
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		L_choix = new JLabel("Choix des flux :");
 		L_pVoitures = new JLabel("Pourcentage de voitures");
@@ -88,8 +89,8 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 		JSpinner.NumberEditor NE_flux = new JSpinner.NumberEditor(S_flux);
 		S_flux.setEditor(NE_flux);
 		NE_flux.getModel().setMinimum(0);
-		NE_flux.getModel().setMaximum(100);
-		NE_flux.getModel().setValue(20);
+		NE_flux.getModel().setMaximum(20);
+		NE_flux.getModel().setValue(10);
 		
 		B_precedent = new JButton("Précédent");
 		B_suivant = new JButton("Suivant");
@@ -175,7 +176,7 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 				S_pBus.setValue(20);
 				S_pCaravanes.setValue(10);
 				S_pMotos.setValue(10);
-				S_flux.setValue(20);
+				S_flux.setValue(10);
 			} else {
 				S_pVoitures.setEnabled(true);
 				S_pCamions.setEnabled(true);

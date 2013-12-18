@@ -30,6 +30,7 @@ public class ChoixBorne extends JFrame {
 	
 	public ChoixBorne() {
 		super("Choix des bornes");
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		L_choix = new JLabel("Choix des bornes :");
 		L_nbManuelles = new JLabel("Nombre de bornes manuelles : ");

@@ -11,6 +11,7 @@ import modele.Borne.TypeBorne;
 import modele.BorneManuelle;
 
 
+import vue.Fenetre;
 import vue.FenetreAlarme;
 
 /**
@@ -22,11 +23,13 @@ import vue.FenetreAlarme;
  */
 public class Superviseur implements AlarmeListener  {
 	
+	private Fenetre _f;
 	private List<Borne> _voies;
 	private Parametre _p;
 
-	public Superviseur(Parametre p){
+	public Superviseur(Parametre p, Fenetre f){
 		_p = p;
+		_f = f;
 		_voies= new ArrayList<Borne>();
 
 		try {
@@ -50,22 +53,11 @@ public class Superviseur implements AlarmeListener  {
 	}
 
 	public void ouvrirVoie(TypeBorne t) throws Exception{
-		Borne voie;
-		switch (t) {
-		case MANUELLE:
-			voie= new BorneManuelle(_voies.size());
-			break;
-		case AUTOMATIQUE:
-			voie= new BorneAutomatique(_voies.size());
-			break;
-		case TELEPEAGE:
-			voie = new Telepeage(_voies.size());
-			break;
-		default:
-			throw new Exception("Le type de borne n'existe pas!\n");
-		}
+		Borne voie = new Borne(_voies.size(), t);
+
 		voie.addAlarmeListener(this);
 		_voies.add(voie);
+		_f.ajouterBorne(t);
 	}
 	
 	public void fermerVoie(Borne voie){
@@ -77,8 +69,6 @@ public class Superviseur implements AlarmeListener  {
 		new FenetreAlarme(e.getMessage());
 
 	}
-	
-	
 	
 }
 	

@@ -5,8 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import modele.Borne.TypeBorne;
@@ -22,19 +22,20 @@ import javax.swing.SwingConstants;
  * @author Christophe Bougère
  *
  */
-public class Fenetre extends JFrame implements MouseListener {
+public class Fenetre extends JFrame implements ActionListener {
 	private ArrayList<JButton> B_bornes;
 	private ArrayList<JLabel> L_vehicules;
 	private JButton B_parametres;
 	private GridBagLayout GBL_layout;
 	private BorderLayout BL_layout;
 	private JPanel P_bornes;
+	private DetailBorne db;
 	
 	public Fenetre() {
 		super("Simulateur de barrière de péage");
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		B_parametres = new JButton("Modifier les paramètres");
-		B_parametres.addMouseListener(this);
 		
 		BL_layout = new BorderLayout(20, 20);
 		this.setLayout(BL_layout);
@@ -70,6 +71,7 @@ public class Fenetre extends JFrame implements MouseListener {
 		GBC.gridy = 0;
 	    
 		JButton bouton = new JButton(texte);
+		bouton.addActionListener(this);
 		bouton.setPreferredSize(new Dimension(150, 150));
 		B_bornes.add(bouton);
 		P_bornes.add(bouton, GBC);
@@ -81,6 +83,7 @@ public class Fenetre extends JFrame implements MouseListener {
 		P_bornes.add(label, GBC);
 		
 		this.pack();
+		this.setLocationRelativeTo(null);
 	}
 	
 	public void retirerBorne(int numero) {
@@ -122,6 +125,7 @@ public class Fenetre extends JFrame implements MouseListener {
 		this.getContentPane().add(P_bornes, BorderLayout.CENTER);
 		
 		this.pack();
+		this.setLocationRelativeTo(null);
 	}
 	
 	public JLabel getLabel(int i) {
@@ -132,35 +136,24 @@ public class Fenetre extends JFrame implements MouseListener {
 		return B_bornes.get(i);
 	}
 	
-	// Méthodes à supprimer (juste pour tester les fonctions) avec le implements mouselistener
+	public JButton getB_parametres() {
+		return B_parametres;
+	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		if(e.getButton() == 1) {
-			ajouterBorne(TypeBorne.MANUELLE);
-		} else {
-			razBornes();
+	public void actionPerformed(ActionEvent e) {
+		// Quand on clique sur une borne, on veut les détails
+		JButton b = (JButton) e.getSource();
+		TypeBorne t = TypeBorne.MANUELLE;
+		switch(b.getText().charAt(1)) {
+		case 'A':
+			t = TypeBorne.AUTOMATIQUE;
+		case 'T':
+			t = TypeBorne.TELEPEAGE;
 		}
+		int numero = Integer.parseInt(b.getText().substring(3));
+		db = new DetailBorne(t, numero);
+		db.setLocationRelativeTo(null);
+		db.setVisible(true);
 	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		
-	}
-
 }
