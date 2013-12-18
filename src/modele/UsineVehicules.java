@@ -2,7 +2,6 @@ package modele;
 
 import java.util.Random;
 
-import com.sun.org.apache.bcel.internal.generic.Type;
 
 import modele.VehiculeEvent.TypeVehicule;
 import controleur.VehiculeListener;
@@ -16,9 +15,16 @@ import controleur.VehiculeListener;
 public class UsineVehicules extends java.lang.Thread {
 	private VehiculeListener _vehiculeListener;
 	private Parametre _p;
+	private boolean _canRun;
 	
 	public UsineVehicules(Parametre p) {
 		_p = p;
+		_canRun = true;
+	}
+	
+	public void kill() {
+		_canRun = false;
+		removeVehiculeListener(_vehiculeListener);
 	}
 	
 	public void addVehiculeListener(VehiculeListener l) {
@@ -38,7 +44,7 @@ public class UsineVehicules extends java.lang.Thread {
 	 */
 	@Override
 	public void run() {
-		while (true) {
+		while (_canRun) {
 			if (_vehiculeListener != null) {
 				try {
 					Random r = new Random();
@@ -46,7 +52,8 @@ public class UsineVehicules extends java.lang.Thread {
 					int tab[] = new int[] { _p.nbVoitures + _p.nbBus + _p.nbCamions
 							+ _p.nbCaravanes + _p.nbMotos,
 							_p.nbVoitures, _p.nbBus, _p.nbCamions, _p.nbCaravanes, _p.nbMotos };
-					while (tab[0] != 0) {
+					
+					while (tab[0] != 0 && _vehiculeListener != null) {
 						TypeVehicule typeVehicule = TypeVehicule.getRandom();
 						VehiculeEvent evt = new VehiculeEvent(this, typeVehicule, r.nextInt(_p.nbVoies));
 						_vehiculeListener.gererVehicule(evt);

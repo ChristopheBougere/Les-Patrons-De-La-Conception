@@ -28,6 +28,7 @@ public class Borne implements VehiculeListener {
 	private TypeBorne _typeBorne;
 	private final int _alea = 10;
 	private Parametre _p;
+	private UsineVehicules _usineVehicules;
 	
 	public enum TypeBorne {
 	    MANUELLE, AUTOMATIQUE, TELEPEAGE
@@ -41,9 +42,9 @@ public class Borne implements VehiculeListener {
 		_compteurVehicules = 0;
 		_typeBorne = typeBorne;
 		_p = p;
-		UsineVehicules u = new UsineVehicules(_p);
-		u.addVehiculeListener(this);
-		u.start();
+		 _usineVehicules = new UsineVehicules(_p);
+		_usineVehicules.addVehiculeListener(this);
+		_usineVehicules.start();
 	}
 	
 	public int getFluxVehicule() {
@@ -86,10 +87,12 @@ public class Borne implements VehiculeListener {
 	 */
 	@Override
 	public synchronized void gererVehicule(VehiculeEvent vehicule) {
+		Random rand = new Random();
 		try {
-			Thread.sleep(2000);
+			Thread.sleep(1000 * (rand.nextInt(3) + 1));
 			if (new Random().nextInt(_alea) == _alea - 1) {
 				declencherAlarme(TypeAlarme.REFUS_PAIEMENT);
+				_usineVehicules.kill();
 			} else {
 				Rapport r = new Rapport(vehicule.typeVehicule(), _numeroVoie,
 						new Date(), 0, _typeBorne);

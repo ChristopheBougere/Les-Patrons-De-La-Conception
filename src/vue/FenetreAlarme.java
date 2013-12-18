@@ -39,10 +39,8 @@ public class FenetreAlarme extends javax.swing.JFrame {
 			_label.setBounds(17, 197, 99, 22);
 			_label.setFont(new java.awt.Font("Khmer OS",1,12));
 
-
 			getContentPane().add(_panel,BorderLayout.WEST);
 			_panel.setPreferredSize(new java.awt.Dimension(310, 270));
-
 			pack();
 			this.setSize(500,300);
 		} catch (Exception e){
