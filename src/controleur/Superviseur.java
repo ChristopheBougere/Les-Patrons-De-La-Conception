@@ -4,11 +4,8 @@ import java.util.List;
 
 import modele.AlarmeEvent;
 import modele.Borne;
-import modele.BorneAutomatique;
 import modele.Parametre;
-import modele.Telepeage;
 import modele.Borne.TypeBorne;
-import modele.BorneManuelle;
 
 
 import vue.Fenetre;
@@ -67,7 +64,10 @@ public class Superviseur implements AlarmeListener  {
 	@Override
 	public void alarmeDeclenchee(AlarmeEvent e) {
 		new FenetreAlarme(e.getMessage());
-
+	}
+	
+	public Parametre getParametres() {
+		return _p;
 	}
 	
 }

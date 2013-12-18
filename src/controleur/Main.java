@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import modele.Parametre;
+import modele.UsineVehicules;
 
 import vue.ChoixBorne;
 import vue.ChoixFlux;
@@ -35,6 +36,8 @@ public class Main implements ActionListener {
 		_f = new Fenetre();
 		_f.getB_parametres().addActionListener(this);
 		_f.setLocationRelativeTo(null);
+		
+		new UsineVehicules(_s.getParametres());
 	}
 
 	@Override
