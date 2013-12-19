@@ -1,5 +1,9 @@
 package controleur;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
@@ -20,19 +24,23 @@ import vue.FenetreAlarme;
  * @author Baraa EL YOUSSEFI
  * @author Sofiane BOUKHEBELT
  * @author Christophe BOUGERE
+ * @author Walid IBARBACHANE
  *
  */
-public class Superviseur implements AlarmeListener, RapportListener {
+public class Superviseur implements AlarmeListener, RapportListener, ActionListener {
 	
 	private Fenetre _f;
-	private List<Borne> _voies;
+	private ArrayList<FenetreAlarme> _fa;
+	private ArrayList<Borne> _voies;
 	private Parametre _p;
 
 	public Superviseur(Parametre p, Fenetre f){
 		_p = p;
 		_f = f;
+		_fa = new ArrayList<FenetreAlarme>();
+		
 		_voies= new ArrayList<Borne>();
-
+		
 		try {
 			for (int i = 0; i < p.nbManuelles; i++) {
 				ouvrirVoie(TypeBorne.MANUELLE);
@@ -75,17 +83,22 @@ public class Superviseur implements AlarmeListener, RapportListener {
 		return _voies.get(numeroVoie);
 	}
 	
+	private void ajouterActionListener(){
+		_fa.get(_fa.size() - 1).get_jButtonOK().addActionListener(this);
+	}
 	/**
 	 * Affiche une fenêtre d'alarme avec son message lorsque celle-ci est déclenchée
 	 */
 	@Override
-	public void alarmeDeclenchee(AlarmeEvent e) {
+	public void alarmeDeclenchee(AlarmeEvent e, int numeroVoie) {
+		//final int numeroVoieAlarme = numeroVoie;
 		final AlarmeEvent cpy = e;
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override
 			public void run() {
-				new FenetreAlarme(cpy.getMessage());		
+				_fa.add(new FenetreAlarme(cpy.getMessage()));
+				ajouterActionListener();
 			}
 		});
 		
@@ -99,6 +112,17 @@ public class Superviseur implements AlarmeListener, RapportListener {
 	public void rapportEnvoye(RapportEvent r) {
 		System.out.println("rapport envoye");
 		_f.envoiRapport(r);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		for (int i = 0; i < _fa.size(); i++) {
+			if( e.getSource() == _fa.get(i).get_jButtonOK()){
+				System.out.println("plop");
+				_fa.get(i).dispose();
+				_voies.get(i).relancerUsine();
+			}
+		}
 	}
 	
 }

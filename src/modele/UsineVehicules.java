@@ -24,7 +24,10 @@ public class UsineVehicules extends java.lang.Thread {
 	
 	public void kill() {
 		_canRun = false;
-		removeVehiculeListener(_vehiculeListener);
+	}
+	
+	public void relancer() {
+		_canRun = true;
 	}
 	
 	public void addVehiculeListener(VehiculeListener l) {

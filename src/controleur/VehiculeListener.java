@@ -4,6 +4,18 @@ import java.util.EventListener;
 
 import modele.VehiculeEvent;
 
-public interface VehiculeListener extends EventListener {
-	public void gererVehicule(VehiculeEvent evt);
+/**
+ * @autor Sofane BOUKHEBELT
+ * @author ibarbachane
+ *
+ */
+public abstract class VehiculeListener implements EventListener {
+	public abstract void gererVehicule(VehiculeEvent evt);
+    private  boolean _active = true;
+    public  void setActive (boolean active){
+        _active = active;
+    }
+    public  boolean isActive(){
+    	return _active;
+    }
 }

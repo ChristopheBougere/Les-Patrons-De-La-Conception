@@ -31,6 +31,7 @@ public class FenetreAlarme extends javax.swing.JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JLabel _label;
+	private JButton _jButtonOK;
 	private JPanel _panel;
 	private String _message;
 	
@@ -58,13 +59,22 @@ public class FenetreAlarme extends javax.swing.JFrame {
 				_label.setBounds(78, 26, 373, 25);
 				_label.setFont(new java.awt.Font("Khmer OS",1,12));
 			}
+			{
+				_jButtonOK = new JButton();
+				_panel.add(_jButtonOK);
+				_jButtonOK.setText("Ok");
+				_jButtonOK.setBounds(421, 33, 30, 22);
+			}
 			pack();
 			this.setSize(492, 117);
 		} catch (Exception e){
 			e.printStackTrace();
 		}	
 	}
-	
+
+	public JButton get_jButtonOK() {
+		return _jButtonOK;
+	}
 	
 }
 
