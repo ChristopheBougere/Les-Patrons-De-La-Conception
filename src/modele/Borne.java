@@ -6,8 +6,8 @@ import java.util.Random;
 
 import modele.AlarmeEvent.TypeAlarme;
 import modele.VehiculeEvent.TypeVehicule;
-
 import controleur.AlarmeListener;
+import controleur.RapportListener;
 import controleur.VehiculeListener;
 
 /**

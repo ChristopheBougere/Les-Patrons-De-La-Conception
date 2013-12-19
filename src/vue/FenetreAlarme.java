@@ -31,7 +31,6 @@ public class FenetreAlarme extends javax.swing.JFrame {
 	
 	private void initGUI() {
 		try{
-			setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			_panel = new JPanel();
 			_label = new JLabel();
 			_panel.add(_label);

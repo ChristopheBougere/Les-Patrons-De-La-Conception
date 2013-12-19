@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import modele.Borne.TypeBorne;
+import modele.Rapport;
+import modele.RapportEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,6 +27,7 @@ import javax.swing.SwingConstants;
 public class Fenetre extends JFrame implements ActionListener {
 	private ArrayList<JButton> B_bornes;
 	private ArrayList<JLabel> L_vehicules;
+	private ArrayList<RapportEvent> R_rapports;
 	private JButton B_parametres;
 	private GridBagLayout GBL_layout;
 	private BorderLayout BL_layout;
@@ -118,6 +121,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	public void razBornes() {
 		B_bornes = new ArrayList<JButton>();
 		L_vehicules = new ArrayList<JLabel>();
+		R_rapports = new ArrayList<RapportEvent>();
 		
 		GBL_layout = new GridBagLayout();
 		P_bornes = new JPanel(GBL_layout);
@@ -152,8 +156,13 @@ public class Fenetre extends JFrame implements ActionListener {
 			t = TypeBorne.TELEPEAGE;
 		}
 		int numero = Integer.parseInt(b.getText().substring(3));
-		db = new DetailBorne(t, numero);
+		db = new DetailBorne(t, numero, R_rapports);
 		db.setLocationRelativeTo(null);
 		db.setVisible(true);
+	}
+	
+	public void envoiRapport(RapportEvent r) {
+		System.out.println("plop");
+		R_rapports.add(r);
 	}
 }

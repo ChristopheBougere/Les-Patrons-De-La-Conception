@@ -7,9 +7,11 @@ import javax.swing.SwingUtilities;
 import modele.AlarmeEvent;
 import modele.Borne;
 import modele.Parametre;
+import modele.RapportEvent;
 import modele.Borne.TypeBorne;
 
 
+import modele.Rapport;
 import vue.Fenetre;
 import vue.FenetreAlarme;
 
@@ -20,7 +22,7 @@ import vue.FenetreAlarme;
  * @author Christophe BOUGERE
  *
  */
-public class Superviseur implements AlarmeListener  {
+public class Superviseur implements AlarmeListener, RapportListener {
 	
 	private Fenetre _f;
 	private List<Borne> _voies;
@@ -55,6 +57,7 @@ public class Superviseur implements AlarmeListener  {
 		Borne voie = new Borne(_voies.size(), t, _p);
 
 		voie.addAlarmeListener(this);
+		voie.addRapportListener(this);
 		_voies.add(voie);
 		_f.ajouterBorne(t);
 	}
@@ -90,6 +93,12 @@ public class Superviseur implements AlarmeListener  {
 	
 	public Parametre getParametres() {
 		return _p;
+	}
+
+	@Override
+	public void rapportEnvoye(RapportEvent r) {
+		System.out.println("rapport envoye");
+		_f.envoiRapport(r);
 	}
 	
 }
