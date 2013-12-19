@@ -1,2 +1,5 @@
 # On ne souhaite pas partager les fichiers compilés
 bin/*
+*.class
+.project
+.classpath
