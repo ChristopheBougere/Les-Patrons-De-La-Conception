@@ -13,22 +13,25 @@ import controleur.VehiculeListener;
 /**
  * 
  * @author Sofiane BOUKHEBELT
+ * @author Ghita Baouz
  *
  */
 public class Borne implements VehiculeListener {
-	protected int _numeroVoie;
-	protected BarrierePhysique _barriere;
-	protected Feu _feu;
-	protected Vehicule _vehicules;
-	protected int _compteurVehicules;
-	protected VehiculeListener _vehiculeListener = null;
-	protected boolean _nouvelleVoiture;
-	protected AlarmeListener _alarmeListener;
-	protected TypeAlarme _alarme;
+	private int _numeroVoie;
+	private BarrierePhysique _barriere;
+	private Feu _feu;
+	private Vehicule _vehicules;
+	private int _compteurVehicules;
+	private VehiculeListener _vehiculeListener = null;
+	private boolean _nouvelleVoiture;
+	private AlarmeListener _alarmeListener;
+	private TypeAlarme _alarme;
 	private TypeBorne _typeBorne;
 	private final int _alea = 10;
 	private Parametre _p;
 	private UsineVehicules _usineVehicules;
+	private RapportListener _rapportListener;
+	
 	
 	public enum TypeBorne {
 	    MANUELLE, AUTOMATIQUE, TELEPEAGE
@@ -82,6 +85,31 @@ public class Borne implements VehiculeListener {
 		return _typeBorne;
 	}
 	
+	public void addRapportListener(RapportListener l){
+		if (_rapportListener == null) {
+			_rapportListener = l;
+		}
+	}
+	
+	public void removeRapportListener(RapportListener l) {
+		if (_rapportListener!= null || _rapportListener == l) {
+			_rapportListener = null;
+		}
+	}
+	
+	public void envoyerRapport(VehiculeEvent vehicule){
+		if(_rapportListener != null){
+			RapportEvent event = new RapportEvent(this, vehicule.typeVehicule(), _numeroVoie,
+					new Date(), 0, _typeBorne);
+			_rapportListener.rapportEnvoye(event);
+		}
+	}
+	
+	
+	
+	
+	
+	
 	/**
 	 * Procédure de paiement et de passage d'un véhicule
 	 */
@@ -89,7 +117,7 @@ public class Borne implements VehiculeListener {
 	public synchronized void gererVehicule(VehiculeEvent vehicule) {
 		Random rand = new Random();
 		try {
-			Thread.sleep(1000 * (rand.nextInt(3) + 1));
+			Thread.sleep(1000 * (rand.nextInt(3) + 1)); // paiement
 			if (new Random().nextInt(_alea) == _alea - 1) {
 				declencherAlarme(TypeAlarme.REFUS_PAIEMENT);
 				_usineVehicules.kill();
