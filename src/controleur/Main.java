@@ -28,7 +28,6 @@ public class Main implements ActionListener {
 	private Fenetre _f;
 	private Superviseur _s;
 	
-	
 	public Main() {
 		_cb = new ChoixBorne();
 		_cb.getB_suivant().addActionListener(this);

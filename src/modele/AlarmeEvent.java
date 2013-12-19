@@ -16,7 +16,7 @@ public class AlarmeEvent extends EventObject {
 		BARRIERE
 	}
 	
-	public String getMessage(){
+	public String getMessage() {
 		return _message;
 	}
 
