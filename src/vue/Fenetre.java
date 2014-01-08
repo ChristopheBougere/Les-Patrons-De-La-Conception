@@ -10,7 +10,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import modele.Borne.TypeBorne;
-import modele.Rapport;
 import modele.RapportEvent;
 
 import javax.swing.JButton;
@@ -162,7 +161,6 @@ public class Fenetre extends JFrame implements ActionListener {
 	}
 	
 	public void envoiRapport(RapportEvent r) {
-		System.out.println("plop");
 		R_rapports.add(r);
 	}
 }

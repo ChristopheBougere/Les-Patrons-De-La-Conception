@@ -15,7 +15,6 @@ import modele.RapportEvent;
 import modele.Borne.TypeBorne;
 
 
-import modele.Rapport;
 import vue.Fenetre;
 import vue.FenetreAlarme;
 
@@ -110,7 +109,6 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 
 	@Override
 	public void rapportEnvoye(RapportEvent r) {
-		System.out.println("rapport envoye");
 		_f.envoiRapport(r);
 	}
 

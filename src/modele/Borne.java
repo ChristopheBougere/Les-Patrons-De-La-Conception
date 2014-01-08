@@ -102,6 +102,7 @@ public class Borne extends VehiculeListener {
 		if(_rapportListener != null){
 			RapportEvent event = new RapportEvent(this, vehicule.typeVehicule(), _numeroVoie,
 					new Date(), 0, _typeBorne);
+			System.out.println(event);
 			_rapportListener.rapportEnvoye(event);
 		}
 	}
@@ -127,9 +128,7 @@ public class Borne extends VehiculeListener {
 					setActive(false);
 					//_usineVehicules.removeVehiculeListener(this);
 				} else {
-					Rapport r = new Rapport(vehicule.typeVehicule(), _numeroVoie,
-							new Date(), 0, _typeBorne);
-					System.out.println(r);
+					envoyerRapport(vehicule);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
