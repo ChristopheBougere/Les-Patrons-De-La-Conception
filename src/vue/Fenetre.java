@@ -162,6 +162,6 @@ public class Fenetre extends JFrame implements ActionListener {
 	
 	public void envoiRapport(RapportEvent r) {
 		R_rapports.add(r);
-		L_vehicules.get(r.get_numeroVoie()).setText(r.getTypeVehicule().toString().toLowerCase());
+		L_vehicules.get(r.get_numeroVoie()).setText(r.get_typeVehicule().toString().toLowerCase());
 	}
 }
