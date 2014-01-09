@@ -97,8 +97,11 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 			
 			@Override
 			public void run() {
-				_fa.add(new FenetreAlarme(cpy.getMessage()));
-				ajouterActionListener();
+				if( _fa.size() < 6){
+					_fa.add(new FenetreAlarme(cpy.getMessage()));
+					System.out.println("Fenetre Alarme ajoutee");
+					ajouterActionListener();
+				}
 			}
 		});
 		
@@ -118,9 +121,9 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 	public void actionPerformed(ActionEvent e) {
 		for (int i = 0; i < _fa.size(); i++) {
 			if( e.getSource() == _fa.get(i).get_jButtonOK()){
-				System.out.println("plop");
-				_fa.get(i).dispose();
 				_voies.get(i).relancerUsine();
+				_fa.get(i).dispose();
+				_fa.remove(i);
 			}
 		}
 	}

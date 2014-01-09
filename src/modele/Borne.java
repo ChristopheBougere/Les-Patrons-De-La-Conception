@@ -47,7 +47,7 @@ public class Borne extends VehiculeListener {
 		_p = p;
 		_usineVehicules = new UsineVehicules(_p);
 		_usineVehicules.addVehiculeListener(this);
-		setActive(true);
+		setListenerActive(true);
 		_usineVehicules.start();
 	}
 
@@ -108,8 +108,14 @@ public class Borne extends VehiculeListener {
 
 	public void relancerUsine(){
 		_usineVehicules.relancer();
-		setActive(true);
+		setListenerActive(true);
 		//_usineVehicules.addVehiculeListener(this);
+	}
+	
+	public void stopperUsine() {
+		if(!_usineVehicules.kill())
+			System.out.println("Usine arretee (borne)");
+		setListenerActive(false);
 	}
 
 	/**
@@ -117,14 +123,16 @@ public class Borne extends VehiculeListener {
 	 */
 	@Override
 	public synchronized void gererVehicule(VehiculeEvent vehicule) {
-		if(isActive()){
+		//while(!borneDisponible()) 
+			//System.out.println("la borne n'est pas disponible");
+		while(borneDisponible()) {
+			System.out.println("la borne est disponible");
 			Random rand = new Random();
 			try {
 				Thread.sleep(1000 * (rand.nextInt(3) + 1)); // paiement
 				if (new Random().nextInt(_alea) == _alea - 1) {
 					declencherAlarme(TypeAlarme.REFUS_PAIEMENT);
-					_usineVehicules.kill();
-					setActive(false);
+					stopperUsine();
 					//_usineVehicules.removeVehiculeListener(this);
 				} else {
 					Rapport r = new Rapport(vehicule.typeVehicule(), _numeroVoie,

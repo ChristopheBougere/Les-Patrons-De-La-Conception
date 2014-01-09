@@ -22,8 +22,9 @@ public class UsineVehicules extends java.lang.Thread {
 		_canRun = true;
 	}
 	
-	public void kill() {
+	public boolean kill() {
 		_canRun = false;
+		return _canRun;
 	}
 	
 	public void relancer() {
@@ -47,9 +48,12 @@ public class UsineVehicules extends java.lang.Thread {
 	 */
 	@Override
 	public void run() {
+		while(!_canRun)
+			System.out.println("Usine arretee (UsineVehicule)");
 		while (_canRun) {
+			System.out.println("Usine en route");
 			if (_vehiculeListener != null) {
-				try {
+			try {
 					Random r = new Random();
 					
 					int tab[] = new int[] { _p.nbVoitures + _p.nbBus + _p.nbCamions
