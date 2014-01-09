@@ -39,13 +39,12 @@ public class FenetreAlarme extends javax.swing.JFrame {
 		super();
 		_message=message;
 		this.setLocationRelativeTo(null);
-		this.setVisible(true);	
+		this.setVisible(true);
 		initGUI();
 	}
 	
 	private void initGUI() {
 		try{
-			setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			getContentPane().setLayout(null);
 			_panel = new JPanel();
 
