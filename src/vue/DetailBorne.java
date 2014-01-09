@@ -21,7 +21,7 @@ public class DetailBorne extends JFrame implements ListSelectionListener {
 
 	private TypeBorne type;
 	private int numero;
-	//private PanelBorne panel;
+	private PanelBorne panel;
 	private JList L_liste;
 	private int compteur;
 	private ArrayList<RapportEvent> rapports;
@@ -36,7 +36,7 @@ public class DetailBorne extends JFrame implements ListSelectionListener {
 		
 		
 		String texte = "";
-		//panel = new PanelBorne();
+		panel = new PanelBorne();
 		Iterator<RapportEvent> it = r.iterator();
 		while (it.hasNext()) {
 		       RapportEvent re = it.next();
@@ -51,7 +51,7 @@ public class DetailBorne extends JFrame implements ListSelectionListener {
 		int compteur = 0;
 		while(it.hasNext()) {
 		       RapportEvent re = it.next();
-		       vehicules[compteur] = "" + compteur + ": " + re.getTypeVehicule();
+		       vehicules[compteur] = "" + compteur + ": " + re.get_typeVehicule();
 		       compteur++;
 		}
 		
@@ -61,14 +61,14 @@ public class DetailBorne extends JFrame implements ListSelectionListener {
 		L_liste.setVisibleRowCount(-1);
 		L_liste.addListSelectionListener(this);
 		JScrollPane listScroller = new JScrollPane(L_liste);
-		listScroller.setPreferredSize(new Dimension(150, 400));
+		listScroller.setPreferredSize(new Dimension(150, 250));
 		
 		this.getContentPane().setLayout(new BorderLayout(10, 10));
 		this.getContentPane().add(L_liste, BorderLayout.WEST);
-		//this.getContentPane().add(panel, BorderLayout.CENTER);
+		this.getContentPane().add(panel, BorderLayout.CENTER);
 		this.pack();
 		this.setVisible(true);
-		this.setSize(600, 400);
+		this.setSize(400, 250);
 	}
 
 	public void afficherDetail(RapportEvent r) {
@@ -84,7 +84,7 @@ public class DetailBorne extends JFrame implements ListSelectionListener {
         for(int i = minIndex; i <= maxIndex; i++) {
             if(lsm.isSelectedIndex(i)) {
                 int n = Integer.parseInt(((String) L_liste.getModel().getElementAt(i)).split(":")[0]);
-                afficherDetail(rapports.get(n));
+                panel.mettreAJour(rapports.get(n));
             }
         }
 	}

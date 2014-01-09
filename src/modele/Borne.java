@@ -100,8 +100,35 @@ public class Borne extends VehiculeListener {
 
 	public void envoyerRapport(VehiculeEvent vehicule){
 		if(_rapportListener != null){
+			double prixParKm =0;
+			switch(vehicule.typeVehicule()) {
+			case CAMION:
+				prixParKm=0.2;
+				break;
+			case BUS:
+				prixParKm=0.15;
+				break;
+			case CARAVANE:
+				prixParKm=0.13;
+				break;
+			case MOTO:
+				prixParKm=0.08;
+				break;
+			case VOITURE:
+				prixParKm=0.12;
+				break;
+			case SPECIAL:
+				prixParKm=0;
+				break;
+			}
+			int nombreKm=(new Random()).nextInt(500)+1;
+			double coeff = 1.0;
+			if(_typeBorne == TypeBorne.TELEPEAGE) {
+				coeff = 0.75;
+			}
+			double somme=coeff*prixParKm*nombreKm;
 			RapportEvent event = new RapportEvent(this, vehicule.typeVehicule(), _numeroVoie,
-					new Date(), 0, _typeBorne);
+					new Date(), (int)somme, _typeBorne);
 			System.out.println(event);
 			_rapportListener.rapportEnvoye(event);
 		}
