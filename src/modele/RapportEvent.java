@@ -34,4 +34,7 @@ public class RapportEvent extends EventObject {
 	public int get_numeroVoie() {
 		return _numeroVoie;
 	}
+	public TypeVehicule getTypeVehicule() {
+		return _typeVehicule;
+	}
 }
