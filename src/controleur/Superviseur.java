@@ -3,8 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.swing.SwingUtilities;
 
@@ -97,7 +95,6 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 	 */
 	@Override
 	public void alarmeDeclenchee(AlarmeEvent e, int numVoie) {
-		//final int numeroVoieAlarme = numeroVoie;
 		final AlarmeEvent event = e;
 		final int numeroVoie = numVoie;
 		SwingUtilities.invokeLater(new Runnable() {

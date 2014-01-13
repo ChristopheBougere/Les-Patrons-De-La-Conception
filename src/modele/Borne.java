@@ -236,6 +236,15 @@ public class Borne implements VehiculeListener {
 	public void effectuerPaiement() throws InterruptedException {
 		Thread.sleep(1000 * ((new Random()).nextInt(3) + 1));
 	}
+	
+	/**
+	 * Attend une demi seconde pour simuler le passage d'un véhicule
+	 * 
+	 * @throws InterruptedException
+	 */
+	public void passageVehicule() throws InterruptedException {
+		Thread.sleep(500);
+	}
 
 	/**
 	 * Procédure de paiement et de passage d'un véhicule
@@ -262,8 +271,13 @@ public class Borne implements VehiculeListener {
 					declencherAlarme(TypeAlarme.BARRIERE_NON_LEVEE);
 					stopperUsine();
 				} else {
-					_etat = new EtatOuvert();
+					_feu.feuVert();
 					_barriere.leverBarriere();
+					_etat = new EtatOuvert();
+					passageVehicule();
+					_feu.feuRouge();
+					_barriere.abaisserBarriere();
+					_etat = new EtatFerme();
 					envoyerRapport(vehicule);
 				}
 			} catch (InterruptedException e) {

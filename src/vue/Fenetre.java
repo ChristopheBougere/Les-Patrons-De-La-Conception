@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,15 +26,19 @@ import javax.swing.SwingConstants;
  *
  */
 public class Fenetre extends JFrame implements ActionListener {
-	private ArrayList<Borne> liste_bornes;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private ArrayList<Borne> _liste_bornes;
 	private ArrayList<JButton> B_bornes;
 	private ArrayList<JLabel> L_vehicules;
-	private ArrayList<RapportEvent> R_rapports;
+	private ArrayList<RapportEvent> _R_rapports;
 	private JButton B_parametres;
 	private GridBagLayout GBL_layout;
 	private BorderLayout BL_layout;
 	private JPanel P_bornes;
-	private DetailBorne db = null;
+	private DetailBorne _db = null;
 	
 	public Fenetre() {
 		super("Simulateur de barrière de péage");
@@ -68,7 +71,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	}
 	
 	public void ajouterBorne(TypeBorne type, Borne b) {
-		liste_bornes.add(b);
+		_liste_bornes.add(b);
 		int numero = B_bornes.size() + 1;
 		String texte = texteBouton(type, numero);
 		
@@ -123,10 +126,10 @@ public class Fenetre extends JFrame implements ActionListener {
 	}
 	
 	public void razBornes() {
-		liste_bornes = new ArrayList<Borne>();
+		_liste_bornes = new ArrayList<Borne>();
 		B_bornes = new ArrayList<JButton>();
 		L_vehicules = new ArrayList<JLabel>();
-		R_rapports = new ArrayList<RapportEvent>();
+		_R_rapports = new ArrayList<RapportEvent>();
 		
 		GBL_layout = new GridBagLayout();
 		P_bornes = new JPanel(GBL_layout);
@@ -161,27 +164,27 @@ public class Fenetre extends JFrame implements ActionListener {
 			t = TypeBorne.TELEPEAGE;
 		}
 		int numero = Integer.parseInt(b.getText().substring(3));
-		if(db != null) {
-			db.dispose();
+		if(_db != null) {
+			_db.dispose();
 		}
-		db = new DetailBorne(t, numero - 1, R_rapports);
-		db.setLocationRelativeTo(null);
-		db.setVisible(true);
+		_db = new DetailBorne(t, numero - 1, _R_rapports);
+		_db.setLocationRelativeTo(null);
+		_db.setVisible(true);
 	}
 	
 	public void majImages() {
-		for(int i = 0; i < liste_bornes.size(); i++) {
-			ImageIcon im = liste_bornes.get(i).get_etat().afficherImage();
+		for(int i = 0; i < _liste_bornes.size(); i++) {
+			ImageIcon im = _liste_bornes.get(i).get_etat().afficherImage();
 			B_bornes.get(i).setIcon(im);
 		}
 	}
 	
 	public void envoiRapport(RapportEvent r) {
 		majImages();
-		R_rapports.add(r);
-		if(db != null && r.get_numeroVoie() == db.getNumeroVoie()) {
-			db.ajouterRapport(r);
-			db.majInterface();
+		_R_rapports.add(r);
+		if(_db != null && r.get_numeroVoie() == _db.getNumeroVoie()) {
+			_db.ajouterRapport(r);
+			_db.majInterface();
 		}
 		L_vehicules.get(r.get_numeroVoie()).setText(r.get_typeVehicule().toString().toLowerCase());
 	}

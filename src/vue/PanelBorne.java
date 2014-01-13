@@ -25,16 +25,20 @@ import modele.RapportEvent;
  *
  */
 public class PanelBorne extends JPanel {
-	private JLabel typeVehicule;
-	private JLabel NumBorne;
-	private JTextField JtextSomme;
-	private JLabel Somme;
-	private JTextField JtextTypeBorne;
-	private JLabel TypeBorne;
-	private JTextField JTextHeure;
-	private JLabel Heure;
-	private JTextField JtextNumBorne;
-	private JTextField JtextType;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JLabel _typeVehicule;
+	private JLabel _numBorne;
+	private JTextField _jTextSomme;
+	private JLabel _somme;
+	private JTextField _jTextTypeBorne;
+	private JLabel _typeBorne;
+	private JTextField _jTextHeure;
+	private JLabel _heure;
+	private JTextField _jTextNumBorne;
+	private JTextField _jTextType;
 
 	public PanelBorne() {
 		initGUI();
@@ -46,95 +50,95 @@ public class PanelBorne extends JPanel {
 			this.setLayout(thisLayout);
 			this.setPreferredSize(new java.awt.Dimension(310, 238));
 			{
-				typeVehicule = new JLabel();
-				typeVehicule.setText("Type du véhicule  :");
-				typeVehicule.setFont(new java.awt.Font("Dialog",1,12));
+				_typeVehicule = new JLabel();
+				_typeVehicule.setText("Type du véhicule  :");
+				_typeVehicule.setFont(new java.awt.Font("Dialog",1,12));
 			}
 			{
-				JtextType = new JTextField();
+				_jTextType = new JTextField();
 			}
 			{
-				NumBorne = new JLabel();
-				NumBorne.setText("Numéro de la borne :");
-				NumBorne.setFont(new java.awt.Font("Dialog",1,12));
+				_numBorne = new JLabel();
+				_numBorne.setText("Numéro de la borne :");
+				_numBorne.setFont(new java.awt.Font("Dialog",1,12));
 			}
 			{
-				JtextNumBorne = new JTextField();
+				_jTextNumBorne = new JTextField();
 			}
 			{
-				Heure = new JLabel();
-				Heure.setText("Heure:");
-				Heure.setFont(new java.awt.Font("Dialog",1,12));
+				_heure = new JLabel();
+				_heure.setText("_heure:");
+				_heure.setFont(new java.awt.Font("Dialog",1,12));
 			}
 			{
-				JTextHeure = new JTextField();
+				_jTextHeure = new JTextField();
 			}
 			{
-				TypeBorne = new JLabel();
-				TypeBorne.setText("Type de la borne:");
-				TypeBorne.setFont(new java.awt.Font("Dialog",1,12));
+				_typeBorne = new JLabel();
+				_typeBorne.setText("Type de la borne:");
+				_typeBorne.setFont(new java.awt.Font("Dialog",1,12));
 			}
 			{
-				JtextTypeBorne = new JTextField();
+				_jTextTypeBorne = new JTextField();
 			}
 			{
-				Somme = new JLabel();
-				Somme.setText("Somme perçue:");
-				Somme.setFont(new java.awt.Font("Dialog",1,12));
+				_somme = new JLabel();
+				_somme.setText("_somme perçue:");
+				_somme.setFont(new java.awt.Font("Dialog",1,12));
 			}
 			{
-				JtextSomme = new JTextField();
+				_jTextSomme = new JTextField();
 			}
 			thisLayout.setVerticalGroup(thisLayout.createSequentialGroup()
 				.addContainerGap()
 				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(JtextType, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(typeVehicule, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				    .addComponent(_jTextType, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(_typeVehicule, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGap(30)
 				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(JtextNumBorne, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(NumBorne, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				    .addComponent(_jTextNumBorne, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(_numBorne, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGap(19)
 				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(JTextHeure, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(Heure, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				    .addComponent(_jTextHeure, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(_heure, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGap(24)
 				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(JtextTypeBorne, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(TypeBorne, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
+				    .addComponent(_jTextTypeBorne, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(_typeBorne, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE))
 				.addGap(22)
 				.addGroup(thisLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-				    .addComponent(JtextSomme, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-				    .addComponent(Somme, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+				    .addComponent(_jTextSomme, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(_somme, GroupLayout.Alignment.BASELINE, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
 				.addContainerGap(23, 23));
 			thisLayout.setHorizontalGroup(thisLayout.createSequentialGroup()
 				.addGap(7)
 				.addGroup(thisLayout.createParallelGroup()
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addComponent(Somme, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				        .addComponent(_somme, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 				        .addGap(41))
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addComponent(TypeBorne, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+				        .addComponent(_typeBorne, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
 				        .addGap(26))
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addComponent(Heure, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
+				        .addComponent(_heure, GroupLayout.PREFERRED_SIZE, 112, GroupLayout.PREFERRED_SIZE)
 				        .addGap(38))
-				    .addComponent(NumBorne, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+				    .addComponent(_numBorne, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
 				    .addGroup(GroupLayout.Alignment.LEADING, thisLayout.createSequentialGroup()
-				        .addComponent(typeVehicule, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
+				        .addComponent(_typeVehicule, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
 				        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)))
 				.addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
 				.addGroup(thisLayout.createParallelGroup()
 				    .addGroup(thisLayout.createSequentialGroup()
-				        .addComponent(JtextSomme, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
+				        .addComponent(_jTextSomme, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
 				    .addGroup(thisLayout.createSequentialGroup()
-				        .addComponent(JtextTypeBorne, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
+				        .addComponent(_jTextTypeBorne, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
 				    .addGroup(thisLayout.createSequentialGroup()
-				        .addComponent(JTextHeure, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
+				        .addComponent(_jTextHeure, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
 				    .addGroup(thisLayout.createSequentialGroup()
-				        .addComponent(JtextNumBorne, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
+				        .addComponent(_jTextNumBorne, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE))
 				    .addGroup(thisLayout.createSequentialGroup()
-				        .addComponent(JtextType, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
+				        .addComponent(_jTextType, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)))
 				.addContainerGap(46, Short.MAX_VALUE));
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -142,11 +146,11 @@ public class PanelBorne extends JPanel {
 	}
 	
 	public void mettreAJour( RapportEvent r){
-		JtextType.setText(r.get_typeVehicule().toString());
-		JtextNumBorne.setText(String.valueOf(r.get_numeroVoie() + 1));
-		JtextSomme.setText(String.valueOf(r.get_sommePercue()));
-		JTextHeure.setText(r.get_heure().toString());
-		JtextTypeBorne.setText(r.get_typeBorne().toString());
+		_jTextType.setText(r.get_typeVehicule().toString());
+		_jTextNumBorne.setText(String.valueOf(r.get_numeroVoie() + 1));
+		_jTextSomme.setText(String.valueOf(r.get_sommePercue()));
+		_jTextHeure.setText(r.get_heure().toString());
+		_jTextTypeBorne.setText(r.get_typeBorne().toString());
 		
 	}
 

@@ -9,6 +9,10 @@ import modele.VehiculeEvent.TypeVehicule;
 
 public class RapportEvent extends EventObject {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private TypeVehicule _typeVehicule; 
 	private int _numeroVoie;
 	private Date _heure; 

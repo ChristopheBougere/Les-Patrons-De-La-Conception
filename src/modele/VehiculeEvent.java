@@ -3,7 +3,6 @@ import java.util.EventObject;
 import java.util.Random;
 
 import modele.Borne.TypeBorne;
-import modele.VehiculeEvent.TypeVehicule;
 /**
  * 
  * @author IBARBACHANE Walid

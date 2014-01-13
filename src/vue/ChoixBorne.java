@@ -1,19 +1,13 @@
 package vue;
 
 import java.awt.FlowLayout;
-import java.awt.event.AdjustmentEvent;
-import java.awt.event.AdjustmentListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 /**
  * 
@@ -22,6 +16,10 @@ import javax.swing.event.ChangeListener;
  */
 public class ChoixBorne extends JFrame {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel L_choix, L_nbManuelles, L_nbTelepeage, L_nbAutomatiques;
 	private JSpinner S_nbManuelles, S_nbTelepeage, S_nbAutomatiques;
 	private JButton B_suivant;
