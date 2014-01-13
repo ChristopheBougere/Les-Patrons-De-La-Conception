@@ -22,11 +22,14 @@ public class UsineVehicules extends java.lang.Thread {
 		_canRun = true;
 	}
 	
-	public boolean kill() {
+	public void kill() {
 		_canRun = false;
-		return _canRun;
 	}
+
+	public boolean isStopped(){
+		return !_canRun;
 	
+	}
 	public void relancer() {
 		_canRun = true;
 	}
@@ -46,12 +49,10 @@ public class UsineVehicules extends java.lang.Thread {
 	/**
 	 * Envoie des VehiculeEvent selon les paramètres (variable p)
 	 */
-	@Override
+	@Override	
 	public void run() {
-		while(!_canRun)
-			System.out.println("Usine arretee (UsineVehicule)");
 		while (_canRun) {
-			System.out.println("Usine en route");
+			//System.out.println("Usine en route");
 			if (_vehiculeListener != null) {
 			try {
 					Random r = new Random();
@@ -77,6 +78,8 @@ public class UsineVehicules extends java.lang.Thread {
 				} catch (InterruptedException e) {
 					e.getStackTrace();
 				}
+			} else {
+				_canRun = false;
 			}
 		}
 	}

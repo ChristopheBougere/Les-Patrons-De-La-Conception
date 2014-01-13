@@ -29,14 +29,14 @@ import vue.FenetreAlarme;
 public class Superviseur implements AlarmeListener, RapportListener, ActionListener {
 	
 	private Fenetre _f;
-	private ArrayList<FenetreAlarme> _fa;
+	private HashMap<FenetreAlarme, Integer> _fa;
 	private ArrayList<Borne> _voies;
 	private Parametre _p;
 
 	public Superviseur(Parametre p, Fenetre f){
 		_p = p;
 		_f = f;
-		_fa = new ArrayList<FenetreAlarme>();
+		_fa = new HashMap<FenetreAlarme, Integer>();
 		
 		_voies= new ArrayList<Borne>();
 		
@@ -82,28 +82,33 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 		return _voies.get(numeroVoie);
 	}
 	
-	private void ajouterActionListener(){
-		_fa.get(_fa.size() - 1).get_jButtonOK().addActionListener(this);
+	/**
+	 * On ouvre une fenêtre pour notifier de l'alarme
+	 * Puis on ajoute l'actionListener pour détecter l'appuie sur le bouton "OK"
+	 */
+	public void ajouterEtAfficherFenetre(AlarmeEvent event, int numeroVoie) {
+		FenetreAlarme fa = new FenetreAlarme(event.getMessage());
+		fa.get_jButtonOK().addActionListener(this);
+		_fa.put(fa, numeroVoie);
 	}
+	
 	/**
 	 * Affiche une fenêtre d'alarme avec son message lorsque celle-ci est déclenchée
 	 */
 	@Override
-	public void alarmeDeclenchee(AlarmeEvent e, int numeroVoie) {
+	public void alarmeDeclenchee(AlarmeEvent e, int numVoie) {
 		//final int numeroVoieAlarme = numeroVoie;
-		final AlarmeEvent cpy = e;
+		final AlarmeEvent event = e;
+		final int numeroVoie = numVoie;
 		SwingUtilities.invokeLater(new Runnable() {
 			
 			@Override
 			public void run() {
 				if( _fa.size() < 6){
-					_fa.add(new FenetreAlarme(cpy.getMessage()));
-					System.out.println("Fenetre Alarme ajoutee");
-					ajouterActionListener();
+					ajouterEtAfficherFenetre(event, numeroVoie);
 				}
 			}
 		});
-		
 	}
 	
 	public Parametre getParametres() {
@@ -117,18 +122,19 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		for (int i = 0; i < _fa.size(); i++) {
-			if( e.getSource() == _fa.get(i).get_jButtonOK()){
-				_voies.get(i).relancerUsine();
-				_fa.get(i).dispose();
-				_fa.remove(i);
+		for ( FenetreAlarme fa : _fa.keySet() ) {
+			if( e.getSource() == fa.get_jButtonOK() ){
+				_voies.get(_fa.get(fa)).relancerUsine();
+				fa.dispose();
+				_fa.remove(fa);
+				break;
 			}
 		}
 	}
-	
+
 }
-	
-	
+
+
 	
 	
 	

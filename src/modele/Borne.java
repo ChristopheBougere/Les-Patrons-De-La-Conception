@@ -129,7 +129,7 @@ public class Borne extends VehiculeListener {
 			double somme=coeff*prixParKm*nombreKm;
 			RapportEvent event = new RapportEvent(this, vehicule.typeVehicule(), _numeroVoie,
 					new Date(), (int)somme, _typeBorne);
-			System.out.println(event);
+			//System.out.println(event);
 			_rapportListener.rapportEnvoye(event);
 		}
 	}
@@ -137,11 +137,11 @@ public class Borne extends VehiculeListener {
 	public void relancerUsine(){
 		_usineVehicules.relancer();
 		setListenerActive(true);
-		//_usineVehicules.addVehiculeListener(this);
 	}
 	
 	public void stopperUsine() {
-		if(!_usineVehicules.kill())
+		//_usineVehicules.kill();
+		if(_usineVehicules.isStopped())
 			System.out.println("Usine arretee (borne)");
 		setListenerActive(false);
 	}
@@ -154,7 +154,7 @@ public class Borne extends VehiculeListener {
 		//while(!borneDisponible()) 
 			//System.out.println("la borne n'est pas disponible");
 		while(borneDisponible()) {
-			System.out.println("la borne est disponible");
+			//System.out.println("la borne est disponible");
 			Random rand = new Random();
 			try {
 				Thread.sleep(1000 * (rand.nextInt(3) + 1)); // paiement
