@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,6 +14,7 @@ import modele.Borne;
 import modele.Borne.TypeBorne;
 import modele.RapportEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -167,7 +169,15 @@ public class Fenetre extends JFrame implements ActionListener {
 		db.setVisible(true);
 	}
 	
+	public void majImages() {
+		for(int i = 0; i < liste_bornes.size(); i++) {
+			ImageIcon im = liste_bornes.get(i).get_etat().afficherImage();
+			B_bornes.get(i).setIcon(im);
+		}
+	}
+	
 	public void envoiRapport(RapportEvent r) {
+		majImages();
 		R_rapports.add(r);
 		if(db != null && r.get_numeroVoie() == db.getNumeroVoie()) {
 			db.ajouterRapport(r);

@@ -24,7 +24,7 @@ public class AlarmeEvent extends EventObject {
 		super(source);
 		_message = typeAlarme.toString().toLowerCase();
 		Borne voie = (Borne)source;
-		_message += " à la borne n° " + voie.getNumeroVoie();
+		_message += " à la borne n° " + (voie.getNumeroVoie() + 1);
 		_message += " (" + voie.getType().toString().toLowerCase() + ")";
 	}
 

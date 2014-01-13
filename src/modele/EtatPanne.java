@@ -3,12 +3,14 @@ package modele;
 import java.awt.Image;
 import java.awt.Toolkit;
 
+import javax.swing.ImageIcon;
+
 
 public class EtatPanne implements EtatBorne {
 
 	@Override
-	public Image afficherImage() {
-		return Toolkit.getDefaultToolkit().getImage("EtatPanne.png");
+	public ImageIcon afficherImage() {
+		return new ImageIcon("images/EtatPanne.png");
 	}
 
 }
