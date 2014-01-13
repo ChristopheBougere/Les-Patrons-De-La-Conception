@@ -28,6 +28,8 @@ public class Borne extends VehiculeListener {
 	private TypeAlarme _alarme;
 	private TypeBorne _typeBorne;
 	private final int _alea = 10;
+	private final int _alea1 = 50;
+	private final int _alea2 = 50;
 	private Parametre _p;
 	private UsineVehicules _usineVehicules;
 	private RapportListener _rapportListener;
@@ -139,6 +141,24 @@ public class Borne extends VehiculeListener {
 		setListenerActive(true);
 	}
 	
+	/** 
+	 * Cette méthode permet de dire si la borne automatique manque de monnaie ou pas
+	 */
+	public boolean manqueMonnaie(){
+		Random rand = new Random();
+
+		return rand.nextInt(_alea1)+1==_alea1;
+	}
+	
+	/** 
+	 * Cette méthode permet de dire si le guichetier a appuyé sur le bouton alarme ou pas
+	 */
+	public boolean boutonAlarme(){
+		Random rand = new Random();
+
+		return rand.nextInt(_alea2)+1==_alea2;
+	}
+	
 	public void stopperUsine() {
 		//_usineVehicules.kill();
 		if(_usineVehicules.isStopped())
@@ -158,10 +178,13 @@ public class Borne extends VehiculeListener {
 			Random rand = new Random();
 			try {
 				Thread.sleep(1000 * (rand.nextInt(3) + 1)); // paiement
-				if (new Random().nextInt(_alea) == _alea - 1) {
+				/*if (new Random().nextInt(_alea) == _alea - 1) {
 					declencherAlarme(TypeAlarme.REFUS_PAIEMENT);
-					stopperUsine();
 					//_usineVehicules.removeVehiculeListener(this);
+				}*/
+				if (_typeBorne==TypeBorne.AUTOMATIQUE && manqueMonnaie()) {
+					declencherAlarme(TypeAlarme.PLUS_DE_MONNAIE);
+					stopperUsine();
 				} else {
 					envoyerRapport(vehicule);
 				}
