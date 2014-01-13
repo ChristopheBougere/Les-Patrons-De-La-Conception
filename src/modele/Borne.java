@@ -34,6 +34,7 @@ public class Borne extends VehiculeListener {
 	private UsineVehicules _usineVehicules;
 	private RapportListener _rapportListener;
 
+
 	public enum TypeBorne {
 		MANUELLE, AUTOMATIQUE, TELEPEAGE
 	}
@@ -178,6 +179,10 @@ public class Borne extends VehiculeListener {
 			Random rand = new Random();
 			try {
 				Thread.sleep(1000 * (rand.nextInt(3) + 1)); // paiement
+				/*if (new Random().nextInt(_alea) == _alea - 1) {
+					declencherAlarme(TypeAlarme.REFUS_PAIEMENT);
+					//_usineVehicules.removeVehiculeListener(this);
+				}*/
 				if (_typeBorne==TypeBorne.AUTOMATIQUE && manqueMonnaie()) {
 					declencherAlarme(TypeAlarme.PLUS_DE_MONNAIE);
 					stopperUsine();
@@ -195,6 +200,5 @@ public class Borne extends VehiculeListener {
 			}
 		}
 	}
-
 
 }

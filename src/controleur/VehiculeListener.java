@@ -13,9 +13,9 @@ public abstract class VehiculeListener implements EventListener {
 	
 	public abstract void gererVehicule(VehiculeEvent evt);
     
-	private  boolean _active = true;
+	private boolean _active = true;
     
-    public  void setListenerActive (boolean active){
+    public void setListenerActive (boolean active){
         _active = active;
     }
     /**
@@ -23,7 +23,7 @@ public abstract class VehiculeListener implements EventListener {
      * 
      * @return true si elle l'est.
      */
-    public  boolean borneDisponible(){
+    public boolean borneDisponible(){
     	return _active;
     }
 }

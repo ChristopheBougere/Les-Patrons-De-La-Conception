@@ -109,6 +109,7 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 				}
 			}
 		});
+		
 	}
 	
 	public Parametre getParametres() {
@@ -133,3 +134,10 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 	}
 
 }
+	
+	
+	
+	
+	
+	
+

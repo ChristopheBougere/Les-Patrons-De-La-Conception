@@ -28,7 +28,7 @@ public class RapportEvent extends EventObject {
 		String s1 = "Un(e) " + _typeVehicule.toString().toLowerCase();
 		String s2 = " est passé(e) à la borne n° ";
 		String typeBorne = _typeBorne.toString().toLowerCase();
-		return s1 + s2 + _numeroVoie + " (" + typeBorne + ")\n";
+		return s1 + s2 + _numeroVoie + " (" + typeBorne + ")";
 	}
 
 	public int get_numeroVoie() {
