@@ -66,7 +66,7 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 		voie.addAlarmeListener(this);
 		voie.addRapportListener(this);
 		_voies.add(voie);
-		_f.ajouterBorne(t);
+		_f.ajouterBorne(t, voie);
 	}
 	
 	public void fermerVoie(Borne voie){

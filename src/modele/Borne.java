@@ -33,6 +33,7 @@ public class Borne extends VehiculeListener {
 	private Parametre _p;
 	private UsineVehicules _usineVehicules;
 	private RapportListener _rapportListener;
+	private EtatBorne _etat;
 
 
 	public enum TypeBorne {
@@ -52,6 +53,7 @@ public class Borne extends VehiculeListener {
 		_usineVehicules.addVehiculeListener(this);
 		setListenerActive(true);
 		_usineVehicules.start();
+		_etat = new EtatOuvert();
 	}
 
 	public int getFluxVehicule() {
@@ -185,20 +187,30 @@ public class Borne extends VehiculeListener {
 				}*/
 				if (_typeBorne==TypeBorne.AUTOMATIQUE && manqueMonnaie()) {
 					declencherAlarme(TypeAlarme.PLUS_DE_MONNAIE);
+					_etat = new EtatPanne();
 					stopperUsine();
 				} else if(_barriere.barriereLevee()){
 					declencherAlarme(TypeAlarme.BARRIERE_NON_LEVEE);
+					_etat = new EtatPanne();
 					stopperUsine();
 				} else if(boutonAlarme()){
 					declencherAlarme(TypeAlarme.BOUTON);
+					_etat = new EtatPanne();
 					stopperUsine();
 				} else {
+					_etat = new EtatOuvert();
 					envoyerRapport(vehicule);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		} else {
+			_etat = new EtatFerme();
 		}
+	}
+
+	public EtatBorne get_etat() {
+		return _etat;
 	}
 
 }

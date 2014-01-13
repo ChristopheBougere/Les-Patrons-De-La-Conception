@@ -20,6 +20,10 @@ import modele.RapportEvent;
  * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
  * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
+/**
+ * @author christophe
+ *
+ */
 public class PanelBorne extends JPanel {
 	private JLabel typeVehicule;
 	private JLabel NumBorne;

@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import modele.Borne;
 import modele.Borne.TypeBorne;
 import modele.RapportEvent;
 
@@ -24,6 +25,7 @@ import javax.swing.SwingConstants;
  *
  */
 public class Fenetre extends JFrame implements ActionListener {
+	private ArrayList<Borne> liste_bornes;
 	private ArrayList<JButton> B_bornes;
 	private ArrayList<JLabel> L_vehicules;
 	private ArrayList<RapportEvent> R_rapports;
@@ -63,7 +65,8 @@ public class Fenetre extends JFrame implements ActionListener {
 		return texte;
 	}
 	
-	public void ajouterBorne(TypeBorne type) {
+	public void ajouterBorne(TypeBorne type, Borne b) {
+		liste_bornes.add(b);
 		int numero = B_bornes.size() + 1;
 		String texte = texteBouton(type, numero);
 		
@@ -118,6 +121,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	}
 	
 	public void razBornes() {
+		liste_bornes = new ArrayList<Borne>();
 		B_bornes = new ArrayList<JButton>();
 		L_vehicules = new ArrayList<JLabel>();
 		R_rapports = new ArrayList<RapportEvent>();
