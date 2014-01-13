@@ -31,7 +31,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	private GridBagLayout GBL_layout;
 	private BorderLayout BL_layout;
 	private JPanel P_bornes;
-	private DetailBorne db;
+	private DetailBorne db = null;
 	
 	public Fenetre() {
 		super("Simulateur de barrière de péage");
@@ -155,6 +155,9 @@ public class Fenetre extends JFrame implements ActionListener {
 			t = TypeBorne.TELEPEAGE;
 		}
 		int numero = Integer.parseInt(b.getText().substring(3));
+		if(db != null) {
+			db.dispose();
+		}
 		db = new DetailBorne(t, numero - 1, R_rapports);
 		db.setLocationRelativeTo(null);
 		db.setVisible(true);
@@ -162,6 +165,10 @@ public class Fenetre extends JFrame implements ActionListener {
 	
 	public void envoiRapport(RapportEvent r) {
 		R_rapports.add(r);
+		if(db != null && r.get_numeroVoie() == db.getNumeroVoie()) {
+			db.ajouterRapport(r);
+			db.majInterface();
+		}
 		L_vehicules.get(r.get_numeroVoie()).setText(r.get_typeVehicule().toString().toLowerCase());
 	}
 }

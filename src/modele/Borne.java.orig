@@ -34,7 +34,6 @@ public class Borne extends VehiculeListener {
 	private UsineVehicules _usineVehicules;
 	private RapportListener _rapportListener;
 
-
 	public enum TypeBorne {
 		MANUELLE, AUTOMATIQUE, TELEPEAGE
 	}
@@ -132,7 +131,7 @@ public class Borne extends VehiculeListener {
 			double somme=coeff*prixParKm*nombreKm;
 			RapportEvent event = new RapportEvent(this, vehicule.typeVehicule(), _numeroVoie,
 					new Date(), somme, _typeBorne);
-			System.out.println(event);
+			//System.out.println(event);
 			_rapportListener.rapportEnvoye(event);
 		}
 	}
@@ -140,7 +139,6 @@ public class Borne extends VehiculeListener {
 	public void relancerUsine(){
 		_usineVehicules.relancer();
 		setListenerActive(true);
-		//_usineVehicules.addVehiculeListener(this);
 	}
 	
 	/** 
@@ -162,8 +160,9 @@ public class Borne extends VehiculeListener {
 	}
 	
 	public void stopperUsine() {
-		//if(!_usineVehicules.kill())
-		//	System.out.println("Usine arretee (borne)");
+		//_usineVehicules.kill();
+		if(_usineVehicules.isStopped())
+			System.out.println("Usine arretee (borne)");
 		setListenerActive(false);
 	}
 
@@ -179,10 +178,6 @@ public class Borne extends VehiculeListener {
 			Random rand = new Random();
 			try {
 				Thread.sleep(1000 * (rand.nextInt(3) + 1)); // paiement
-				/*if (new Random().nextInt(_alea) == _alea - 1) {
-					declencherAlarme(TypeAlarme.REFUS_PAIEMENT);
-					//_usineVehicules.removeVehiculeListener(this);
-				}*/
 				if (_typeBorne==TypeBorne.AUTOMATIQUE && manqueMonnaie()) {
 					declencherAlarme(TypeAlarme.PLUS_DE_MONNAIE);
 					stopperUsine();
@@ -200,5 +195,6 @@ public class Borne extends VehiculeListener {
 			}
 		}
 	}
+
 
 }

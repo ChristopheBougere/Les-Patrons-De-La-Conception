@@ -25,15 +25,15 @@ public class DetailBorne extends JFrame implements ListSelectionListener {
 	private JList L_liste;
 	private int compteur;
 	private ArrayList<RapportEvent> rapports;
+	private String vehicules[];
 	
 	
 	public DetailBorne(TypeBorne t, int i, ArrayList<RapportEvent> r) {
-		super("Détail de la borne " + i);
+		super("Détail de la borne " + (i + 1));
 		
 		rapports = new ArrayList<RapportEvent>();
 		type = t;
 		numero = i;
-		
 		
 		String texte = "";
 		panel = new PanelBorne();
@@ -45,16 +45,31 @@ public class DetailBorne extends JFrame implements ListSelectionListener {
 			       rapports.add(re);
 		       }
 		}
-		String vehicules[] = new String[rapports.size()];
+		majInterface();
+	}
+
+	public void afficherDetail(RapportEvent r) {
+		System.out.println("Rapport => " + r);
+	}
+	
+	public void ajouterRapport(RapportEvent r) {
+		rapports.add(r);
+	}
+	
+	public int getNumeroVoie() {
+		return numero;
+	}
+	
+	public void majInterface() {
+		vehicules = new String[rapports.size()];
 		
-		it = rapports.iterator();
+		Iterator<RapportEvent> it = rapports.iterator();
 		int compteur = 0;
 		while(it.hasNext()) {
 		       RapportEvent re = it.next();
 		       vehicules[compteur] = "" + compteur + ": " + re.get_typeVehicule();
 		       compteur++;
 		}
-		
 		L_liste = new JList<String>(vehicules);
 		L_liste.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		L_liste.setLayoutOrientation(JList.VERTICAL);
@@ -64,15 +79,11 @@ public class DetailBorne extends JFrame implements ListSelectionListener {
 		listScroller.setPreferredSize(new Dimension(150, 250));
 		
 		this.getContentPane().setLayout(new BorderLayout(10, 10));
-		this.getContentPane().add(L_liste, BorderLayout.WEST);
+		this.getContentPane().add(listScroller, BorderLayout.WEST);
 		this.getContentPane().add(panel, BorderLayout.CENTER);
 		this.pack();
 		this.setVisible(true);
-		this.setSize(400, 250);
-	}
-
-	public void afficherDetail(RapportEvent r) {
-		System.out.println("Rapport => " + r);
+		this.setSize(450, 250);
 	}
 
 	@Override
