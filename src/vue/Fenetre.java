@@ -155,7 +155,7 @@ public class Fenetre extends JFrame implements ActionListener {
 			t = TypeBorne.TELEPEAGE;
 		}
 		int numero = Integer.parseInt(b.getText().substring(3));
-		db = new DetailBorne(t, numero, R_rapports);
+		db = new DetailBorne(t, numero - 1, R_rapports);
 		db.setLocationRelativeTo(null);
 		db.setVisible(true);
 	}

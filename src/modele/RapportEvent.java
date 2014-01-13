@@ -11,10 +11,10 @@ public class RapportEvent extends EventObject {
 	private TypeVehicule _typeVehicule; 
 	private int _numeroVoie;
 	private Date _heure; 
-	private int _sommePercue; 
+	private double _sommePercue; 
 	private TypeBorne _typeBorne;
 	
-	public RapportEvent(Object source, TypeVehicule typeVehicule,int numeroVoie,Date heure,int sommePercue, TypeBorne typeBorne) {
+	public RapportEvent(Object source, TypeVehicule typeVehicule,int numeroVoie,Date heure,double sommePercue, TypeBorne typeBorne) {
 		super(source);
 		_typeVehicule=typeVehicule;
 		_numeroVoie=numeroVoie;
@@ -43,7 +43,7 @@ public class RapportEvent extends EventObject {
 		return _heure;
 	}
 
-	public int get_sommePercue() {
+	public double get_sommePercue() {
 		return _sommePercue;
 	}
 

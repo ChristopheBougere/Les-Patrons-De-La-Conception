@@ -13,7 +13,7 @@ public class AlarmeEvent extends EventObject {
 
 	public enum TypeAlarme {
 		BOUTON, PLUS_DE_MONNAIE, PLUSIEURS_VEHICULES, REFUS_PAIEMENT,
-		BARRIERE
+		BARRIERE_NON_LEVEE
 	}
 	
 	public String getMessage() {

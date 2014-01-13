@@ -34,12 +34,12 @@ public class Borne extends VehiculeListener {
 	private UsineVehicules _usineVehicules;
 	private RapportListener _rapportListener;
 
-
 	public enum TypeBorne {
 		MANUELLE, AUTOMATIQUE, TELEPEAGE
 	}
 
 	public Borne(int numeroVoie, TypeBorne typeBorne, Parametre p) {
+		System.out.println("Nouvelle borne n°" + numeroVoie);
 		_numeroVoie = numeroVoie;
 		_barriere = new BarrierePhysique();
 		_feu = new Feu();
@@ -130,7 +130,7 @@ public class Borne extends VehiculeListener {
 			}
 			double somme=coeff*prixParKm*nombreKm;
 			RapportEvent event = new RapportEvent(this, vehicule.typeVehicule(), _numeroVoie,
-					new Date(), (int)somme, _typeBorne);
+					new Date(), somme, _typeBorne);
 			System.out.println(event);
 			_rapportListener.rapportEnvoye(event);
 		}
@@ -173,17 +173,19 @@ public class Borne extends VehiculeListener {
 	public synchronized void gererVehicule(VehiculeEvent vehicule) {
 		//while(!borneDisponible()) 
 			//System.out.println("la borne n'est pas disponible");
-		while(borneDisponible()) {
+		if(borneDisponible()) {
 			System.out.println("la borne est disponible");
 			Random rand = new Random();
 			try {
 				Thread.sleep(1000 * (rand.nextInt(3) + 1)); // paiement
-				/*if (new Random().nextInt(_alea) == _alea - 1) {
-					declencherAlarme(TypeAlarme.REFUS_PAIEMENT);
-					//_usineVehicules.removeVehiculeListener(this);
-				}*/
 				if (_typeBorne==TypeBorne.AUTOMATIQUE && manqueMonnaie()) {
 					declencherAlarme(TypeAlarme.PLUS_DE_MONNAIE);
+					stopperUsine();
+				} else if(_barriere.barriereLevee()){
+					declencherAlarme(TypeAlarme.BARRIERE_NON_LEVEE);
+					stopperUsine();
+				} else if(boutonAlarme()){
+					declencherAlarme(TypeAlarme.BOUTON);
 					stopperUsine();
 				} else {
 					envoyerRapport(vehicule);
@@ -193,5 +195,6 @@ public class Borne extends VehiculeListener {
 			}
 		}
 	}
+
 
 }
