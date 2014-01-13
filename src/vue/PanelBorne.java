@@ -138,9 +138,8 @@ public class PanelBorne extends JPanel {
 	}
 	
 	public void mettreAJour( RapportEvent r){
-		
 		JtextType.setText(r.get_typeVehicule().toString());
-		JtextNumBorne.setText(String.valueOf(r.get_numeroVoie()));
+		JtextNumBorne.setText(String.valueOf(r.get_numeroVoie() + 1));
 		JtextSomme.setText(String.valueOf(r.get_sommePercue()));
 		JTextHeure.setText(r.get_heure().toString());
 		JtextTypeBorne.setText(r.get_typeBorne().toString());

@@ -35,21 +35,17 @@ public class DetailBorne extends JFrame implements ListSelectionListener {
 		type = t;
 		numero = i;
 		
-		String texte = "";
 		panel = new PanelBorne();
+		
+		// On remplir l'arraylist avec uniquement les rapports de cette voie
 		Iterator<RapportEvent> it = r.iterator();
 		while (it.hasNext()) {
 		       RapportEvent re = it.next();
 		       if(re.get_numeroVoie() == i) {
-			       texte += re;
 			       rapports.add(re);
 		       }
 		}
 		majInterface();
-	}
-
-	public void afficherDetail(RapportEvent r) {
-		System.out.println("Rapport => " + r);
 	}
 	
 	public void ajouterRapport(RapportEvent r) {
@@ -78,7 +74,8 @@ public class DetailBorne extends JFrame implements ListSelectionListener {
 		JScrollPane listScroller = new JScrollPane(L_liste);
 		listScroller.setPreferredSize(new Dimension(150, 250));
 		
-		this.getContentPane().setLayout(new BorderLayout(10, 10));
+		//this.getContentPane().setLayout(new BorderLayout(10, 10));
+		this.getContentPane().removeAll();
 		this.getContentPane().add(listScroller, BorderLayout.WEST);
 		this.getContentPane().add(panel, BorderLayout.CENTER);
 		this.pack();
