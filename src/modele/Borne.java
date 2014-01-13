@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Random;
 
 import modele.AlarmeEvent.TypeAlarme;
+import modele.VehiculeEvent.TypePaiement;
 import modele.VehiculeEvent.TypeVehicule;
 import controleur.AlarmeListener;
 import controleur.RapportListener;
@@ -16,36 +17,100 @@ import controleur.VehiculeListener;
  * @author Ghita Baouz
  *
  */
-public class Borne extends VehiculeListener {
+public class Borne implements VehiculeListener {
 	private int _numeroVoie;
 	private BarrierePhysique _barriere;
 	private Feu _feu;
-	private Vehicule _vehicules;
 	private int _compteurVehicules;
-	private VehiculeListener _vehiculeListener = null;
-	private boolean _nouvelleVoiture;
 	private AlarmeListener _alarmeListener;
-	private TypeAlarme _alarme;
 	private TypeBorne _typeBorne;
-	private final int _alea = 10;
-	private final int _alea1 = 50;
-	private final int _alea2 = 50;
+	private final int _aleaManqueMonnaie = 50;
+	private final int _aleaBoutonAlarme = 50;
+	private final int _aleaPaiementRefuse = 50;
+	private final int _aleaPlusieursVehicules = 50;
+	private final int _aleaBarriereNonLevee = 50;
 	private Parametre _p;
 	private UsineVehicules _usineVehicules;
 	private RapportListener _rapportListener;
+	private boolean _active = true;
 	private EtatBorne _etat;
-
 
 	public enum TypeBorne {
 		MANUELLE, AUTOMATIQUE, TELEPEAGE
 	}
 
+	private class UsineVehicules extends java.lang.Thread {
+		private VehiculeListener _vehiculeListener;
+		private Parametre _p;
+		private boolean _canRun;
+
+		public UsineVehicules(Parametre p) {
+			_p = p;
+			_canRun = true;
+		}
+
+		public void kill() {
+			_canRun = false;
+		}
+
+		public void relancer() {
+			_canRun = true;
+		}
+
+		public void addVehiculeListener(VehiculeListener l) {
+			if (_vehiculeListener == null) {
+				_vehiculeListener = l;
+			}
+		}
+
+		public void removeVehiculeListener(VehiculeListener l) {
+			if (_vehiculeListener != null || _vehiculeListener == l) {
+				_vehiculeListener = null;
+			}
+		}
+
+		/**
+		 * Envoie des VehiculeEvent selon les paramètres (variable p)
+		 */
+		@Override	
+		public void run() {
+			while (_canRun) {
+				if (_vehiculeListener != null) {
+					try {
+						int tab[] = new int[] { _p.nbVoitures + _p.nbBus + _p.nbCamions
+								+ _p.nbCaravanes + _p.nbMotos,
+								_p.nbVoitures, _p.nbBus, _p.nbCamions, _p.nbCaravanes, _p.nbMotos };
+
+						while (tab[0] != 0 && _vehiculeListener != null) {
+							TypeVehicule typeVehicule = TypeVehicule.getRandom();
+							VehiculeEvent vehicule = new VehiculeEvent(this, typeVehicule, _numeroVoie,
+									_typeBorne);	
+							_vehiculeListener.gererVehicule(vehicule);
+							Thread.sleep(60000 / _p.flux);
+							tab[0]--;
+							switch (typeVehicule) {
+							case VOITURE: tab[1]--; break;
+							case BUS: tab[2]--; break;
+							case CAMION: tab[3]--; break;
+							case CARAVANE: tab[4]--; break;
+							case MOTO: tab[5]--; break;
+							}
+						}
+					} catch (InterruptedException e) {
+						e.getStackTrace();
+					}
+				} else {
+					_canRun = false;
+				}
+			}
+		}
+
+	}
+
 	public Borne(int numeroVoie, TypeBorne typeBorne, Parametre p) {
-		System.out.println("Nouvelle borne n°" + numeroVoie);
 		_numeroVoie = numeroVoie;
 		_barriere = new BarrierePhysique();
 		_feu = new Feu();
-		_nouvelleVoiture = false;
 		_compteurVehicules = 0;
 		_typeBorne = typeBorne;
 		_p = p;
@@ -56,12 +121,20 @@ public class Borne extends VehiculeListener {
 		_etat = new EtatOuvert();
 	}
 
-	public int getFluxVehicule() {
-		return _compteurVehicules;
+	public void setListenerActive (boolean active){
+		_active = active;
+	}
+	/**
+	 * Methode qui permet de savoir si la borne est disponible
+	 * 
+	 * @return true si elle l'est.
+	 */
+	public boolean borneDisponible(){
+		return _active;
 	}
 
-	public boolean courantEstPasse() {
-		return _vehicules.estPasse();
+	public int getFluxVehicule() {
+		return _compteurVehicules;
 	}
 
 	public int getNumeroVoie() {
@@ -132,41 +205,36 @@ public class Borne extends VehiculeListener {
 				coeff = 0.75;
 			}
 			double somme=coeff*prixParKm*nombreKm;
-			RapportEvent event = new RapportEvent(this, vehicule.typeVehicule(), _numeroVoie,
-					new Date(), Math.round(somme * 100.0) / 100.0, _typeBorne);
-			System.out.println(event);
-			_rapportListener.rapportEnvoye(event);
+			RapportEvent rapport = new RapportEvent(this, vehicule.typeVehicule(), _numeroVoie,
+					new Date(), somme, _typeBorne, vehicule.typePaiement());
+			_rapportListener.rapportEnvoye(rapport);
+			System.out.println(rapport);
 		}
 	}
 
-	public void relancerUsine(){
+	public void relancerUsine() {
 		_usineVehicules.relancer();
 		setListenerActive(true);
-		//_usineVehicules.addVehiculeListener(this);
+		_etat = new EtatFerme();
 	}
-	
-	/** 
-	 * Cette méthode permet de dire si la borne automatique manque de monnaie ou pas
-	 */
-	public boolean manqueMonnaie(){
-		Random rand = new Random();
 
-		return rand.nextInt(_alea1)+1==_alea1;
+	public boolean alea(int alea) {
+		return (new Random()).nextInt(alea) == alea - 1;
 	}
-	
-	/** 
-	 * Cette méthode permet de dire si le guichetier a appuyé sur le bouton alarme ou pas
-	 */
-	public boolean boutonAlarme(){
-		Random rand = new Random();
 
-		return rand.nextInt(_alea2)+1==_alea2;
-	}
-	
 	public void stopperUsine() {
-		//if(!_usineVehicules.kill())
-		//	System.out.println("Usine arretee (borne)");
+		_usineVehicules.kill();
 		setListenerActive(false);
+		_etat = new EtatPanne();
+	}
+
+	/**
+	 * Attend un temps aléatoire entre 1 et 3s pour simuler le paiement d'un véhicule
+	 * 
+	 * @throws InterruptedException because the thread is sleeped within this function
+	 */
+	public void effectuerPaiement() throws InterruptedException {
+		Thread.sleep(1000 * ((new Random()).nextInt(3) + 1));
 	}
 
 	/**
@@ -174,43 +242,38 @@ public class Borne extends VehiculeListener {
 	 */
 	@Override
 	public synchronized void gererVehicule(VehiculeEvent vehicule) {
-		//while(!borneDisponible()) 
-			//System.out.println("la borne n'est pas disponible");
-		if(borneDisponible()) {
-			System.out.println("la borne est disponible");
-			Random rand = new Random();
+		if (borneDisponible()) {
 			try {
-				Thread.sleep(1000 * (rand.nextInt(3) + 1)); // paiement
-				/*if (new Random().nextInt(_alea) == _alea - 1) {
-					declencherAlarme(TypeAlarme.REFUS_PAIEMENT);
-					//_usineVehicules.removeVehiculeListener(this);
-				}*/
-				if (_typeBorne==TypeBorne.AUTOMATIQUE && manqueMonnaie()) {
+				effectuerPaiement();
+				TypePaiement typePaiement = vehicule.typePaiement();
+				if (_typeBorne == TypeBorne.AUTOMATIQUE && alea(_aleaManqueMonnaie)) {
 					declencherAlarme(TypeAlarme.PLUS_DE_MONNAIE);
-					_etat = new EtatPanne();
 					stopperUsine();
-				} else if(_barriere.barriereLevee()){
-					declencherAlarme(TypeAlarme.BARRIERE_NON_LEVEE);
-					_etat = new EtatPanne();
-					stopperUsine();
-				} else if(boutonAlarme()){
+				} else if (alea(_aleaBoutonAlarme)) {
 					declencherAlarme(TypeAlarme.BOUTON);
-					_etat = new EtatPanne();
+					stopperUsine();
+				} else if (typePaiement == TypePaiement.ABONNEMENT && alea(_aleaPaiementRefuse)) {
+					declencherAlarme(TypeAlarme.REFUS_PAIEMENT);
+					stopperUsine();
+				} else if (alea(_aleaPlusieursVehicules)) {
+					declencherAlarme(TypeAlarme.PLUSIEURS_VEHICULES);
+					stopperUsine();
+				} else if (alea(_aleaBarriereNonLevee)) {
+					declencherAlarme(TypeAlarme.BARRIERE_NON_LEVEE);
 					stopperUsine();
 				} else {
 					_etat = new EtatOuvert();
+					_barriere.leverBarriere();
 					envoyerRapport(vehicule);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		} else {
-			_etat = new EtatFerme();
 		}
 	}
 
 	public EtatBorne get_etat() {
 		return _etat;
 	}
-
+	
 }

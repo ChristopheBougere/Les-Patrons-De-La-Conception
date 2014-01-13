@@ -60,7 +60,7 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 		return _voies.size();
 	}
 
-	public void ouvrirVoie(TypeBorne t) throws Exception{
+	public void ouvrirVoie(TypeBorne t) {
 		Borne voie = new Borne(_voies.size(), t, _p);
 
 		voie.addAlarmeListener(this);
@@ -134,10 +134,3 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 	}
 
 }
-	
-	
-	
-	
-	
-	
-

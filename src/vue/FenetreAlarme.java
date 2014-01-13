@@ -49,7 +49,7 @@ public class FenetreAlarme extends javax.swing.JFrame {
 			_panel = new JPanel();
 
 			getContentPane().add(_panel, "West");
-			_panel.setBounds(0, 0, 490, 76);
+			_panel.setBounds(0, 0, 464, 76);
 			_panel.setLayout(null);
 			{
 				_label = new JLabel();
@@ -62,7 +62,7 @@ public class FenetreAlarme extends javax.swing.JFrame {
 				_jButtonOK = new JButton();
 				_panel.add(_jButtonOK);
 				_jButtonOK.setText("Ok");
-				_jButtonOK.setBounds(421, 33, 30, 22);
+				_jButtonOK.setBounds(378, 21, 66, 34);
 			}
 			pack();
 			this.setSize(492, 117);

@@ -12,56 +12,69 @@ import modele.VehiculeEvent.TypeVehicule;
  */
 
 public class VehiculeEvent extends EventObject {
-	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public enum TypeVehicule {
 		VOITURE, CAMION, BUS, SPECIAL, CARAVANE, MOTO;
 		public static TypeVehicule getRandom() {
-	        return values()[(int) (Math.random() * values().length)];
-	    }
+			return values()[(int) (Math.random() * values().length)];
+		}
 	}
-	
+
 	public enum TypePaiement {
 		CARTE, MONNAIE, ABONNEMENT
 	}
-	
+
 	private TypeVehicule _typeVehicule;
 	private TypePaiement _typePaiement;
 	private int _numeroVoie;
-	
-	public VehiculeEvent(Object source, TypeVehicule typeVehicule, int numeroVoie) {
+
+	public VehiculeEvent(Object source, TypeVehicule typeVehicule,
+			int numeroVoie, TypeBorne typeBorne) {
 		super(source);
 		_typeVehicule = typeVehicule;
+		_typePaiement = genererPaiement(typeBorne);
 		_numeroVoie = numeroVoie;
-		_typePaiement = aleaTypePaiement();
 	}
-
+	
+	/**
+	 * Permet de générer un type de paiement selon le type de borne.
+	 * On considère que les vehicules ne se trompent pas.
+	 * 
+	 * @return Le type de paiement généré
+	 */
+	public TypePaiement genererPaiement(TypeBorne typeBorne) {
+		if (typeBorne == TypeBorne.TELEPEAGE)
+			return TypePaiement.ABONNEMENT;
+		
+		return aleaTypePaiement();
+	}
+	
 	/**
 	 * 
 	 * @return Un type de paiement tiré pseudo aléatoirement
 	 */
 	private TypePaiement aleaTypePaiement() {
-		int r = new Random().nextInt(3);
-		TypePaiement typePaiement;
-		switch (r) {
-		case 0 : typePaiement = TypePaiement.CARTE;
-		break;
-		case 1 : typePaiement = TypePaiement.MONNAIE;
-		break;
-		case 2 : typePaiement = TypePaiement.ABONNEMENT;
-		break;
-		default: typePaiement = TypePaiement.CARTE;
+		switch (new Random().nextInt(3)) {
+		case 0 : return TypePaiement.CARTE;
+		case 1 : return TypePaiement.MONNAIE;
+		case 2 : return TypePaiement.ABONNEMENT;
+		default : return TypePaiement.CARTE;
 		}
-		return typePaiement;
 	}
-	
+
 	public TypeVehicule typeVehicule() {
 		return _typeVehicule;
 	}
-	
+
 	public TypePaiement typePaiement() {
 		return _typePaiement;
 	}
-	
+
 	public int getNumeroVoie() {
 		return _numeroVoie;
 	}

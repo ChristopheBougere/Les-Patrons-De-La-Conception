@@ -7,7 +7,6 @@ import java.util.Random;
 
 import modele.Borne;
 import modele.Parametre;
-import modele.UsineVehicules;
 import modele.VehiculeEvent;
 import modele.AlarmeEvent.TypeAlarme;
 import modele.Borne.TypeBorne;

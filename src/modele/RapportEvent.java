@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.EventObject;
 
 import modele.Borne.TypeBorne;
+import modele.VehiculeEvent.TypePaiement;
 import modele.VehiculeEvent.TypeVehicule;
 
 public class RapportEvent extends EventObject {
@@ -13,22 +14,27 @@ public class RapportEvent extends EventObject {
 	private Date _heure; 
 	private double _sommePercue; 
 	private TypeBorne _typeBorne;
+	private TypePaiement _typePaiement;
 	
-	public RapportEvent(Object source, TypeVehicule typeVehicule,int numeroVoie,Date heure,double sommePercue, TypeBorne typeBorne) {
+	public RapportEvent(Object source, TypeVehicule typeVehicule,
+			int numeroVoie,Date heure,double sommePercue, TypeBorne typeBorne,
+			TypePaiement typePaiement) {
 		super(source);
 		_typeVehicule=typeVehicule;
 		_numeroVoie=numeroVoie;
 		_heure=heure;
 		_sommePercue=sommePercue;
 		_typeBorne = typeBorne;
+		_typePaiement = typePaiement;
 	}
 	
 	@Override
 	public String toString() {
 		String s1 = "Un(e) " + _typeVehicule.toString().toLowerCase();
-		String s2 = " est passé(e) à la borne n° ";
+		String s2 = " (" + _typePaiement.toString().toLowerCase() + ") ";
+		String s3 = "est passé(e) à la borne n° ";
 		String typeBorne = _typeBorne.toString().toLowerCase();
-		return s1 + s2 + _numeroVoie + " (" + typeBorne + ")";
+		return s1 + s2 + s3 + (_numeroVoie + 1) + " (" + typeBorne + ")";
 	}
 
 	public int get_numeroVoie() {

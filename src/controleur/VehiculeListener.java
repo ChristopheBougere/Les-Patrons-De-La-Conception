@@ -9,21 +9,8 @@ import modele.VehiculeEvent;
  * @author Walid IBARBACHANE
  *
  */
-public abstract class VehiculeListener implements EventListener {
+public interface VehiculeListener extends EventListener {
 	
 	public abstract void gererVehicule(VehiculeEvent evt);
     
-	private boolean _active = true;
-    
-    public void setListenerActive (boolean active){
-        _active = active;
-    }
-    /**
-     * Methode qui permet de savoir si la borne est disponible
-     * 
-     * @return true si elle l'est.
-     */
-    public boolean borneDisponible(){
-    	return _active;
-    }
 }
