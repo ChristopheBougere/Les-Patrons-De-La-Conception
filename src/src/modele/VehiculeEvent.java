@@ -7,15 +7,14 @@ import modele.Borne.TypeBorne;
  * 
  * @author IBARBACHANE Walid
  * @author Sofiane BOUKHEBELT
- *
+ * 
+ * Cette classe sert à la gestion de l'évenement vehicule qui 
+ * est envoyé lorsqu'on crée un véhicule.
  */
-
 public class VehiculeEvent extends EventObject {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
 
 	public enum TypeVehicule {
 		VOITURE, CAMION, BUS, SPECIAL, CARAVANE, MOTO;
@@ -32,6 +31,12 @@ public class VehiculeEvent extends EventObject {
 	private TypePaiement _typePaiement;
 	private int _numeroVoie;
 
+	/**
+	 * @param source
+	 * @param typeVehicule
+	 * @param numeroVoie
+	 * @param typeBorne
+	 */
 	public VehiculeEvent(Object source, TypeVehicule typeVehicule,
 			int numeroVoie, TypeBorne typeBorne) {
 		super(source);
@@ -54,7 +59,6 @@ public class VehiculeEvent extends EventObject {
 	}
 	
 	/**
-	 * 
 	 * @return Un type de paiement tiré pseudo aléatoirement
 	 */
 	private TypePaiement aleaTypePaiement() {
@@ -66,14 +70,26 @@ public class VehiculeEvent extends EventObject {
 		}
 	}
 
+	/**
+	 * Accesseur
+	 * @return le type de vehicule
+	 */
 	public TypeVehicule typeVehicule() {
 		return _typeVehicule;
 	}
-
+	
+	/**
+	 * Accesseur
+	 * @return le type de paiement
+	 */
 	public TypePaiement typePaiement() {
 		return _typePaiement;
 	}
-
+	
+	/**
+	 * Accesseur
+	 * @return le numero de voie
+	 */
 	public int getNumeroVoie() {
 		return _numeroVoie;
 	}
