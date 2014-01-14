@@ -32,7 +32,7 @@ public class Parametre {
 	/**
 	 * 
 	 * @param percent Le pourcentage de véhicules
-	 * @return
+	 * @return flux * percent / 100
 	 */
 	private int percentToNumber(int percent) {
 		return flux * percent / 100;

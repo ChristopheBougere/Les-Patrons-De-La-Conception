@@ -30,6 +30,11 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 	private HashMap<FenetreAlarme, Integer> _fa;
 	private ArrayList<Borne> _voies;
 	private Parametre _p;
+	
+	/**
+	 * Permet de savoir si la simulation est en pause ou non
+	 */
+	private boolean _pause;
 
 	public Superviseur(Parametre p, Fenetre f){
 		_p = p;
@@ -52,6 +57,8 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 			e.printStackTrace();
 			e.getMessage();
 		}
+		
+		_pause = false;
 	}
 
 	public int getNbVoiesOuvertes(){
@@ -95,6 +102,7 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 	 */
 	@Override
 	public void alarmeDeclenchee(AlarmeEvent e, int numVoie) {
+		Fenetre.majImages();
 		final AlarmeEvent event = e;
 		final int numeroVoie = numVoie;
 		SwingUtilities.invokeLater(new Runnable() {
@@ -125,9 +133,38 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 				_voies.get(_fa.get(fa)).relancerUsine();
 				fa.dispose();
 				_fa.remove(fa);
+				Fenetre.majImages();
 				break;
 			}
 		}
 	}
 
+	/**
+	 * Procédure mettant en pause la simulation si elle ne l'est pas déjà. Ne fait rien sinon.
+	 */
+	public void stopperBornes() {
+		if (_pause)
+			return;
+		
+		_pause = true;
+		for (int i = 0; i < _voies.size(); i++) {
+			_voies.get(i).stopperUsine();
+		}
+		Fenetre.majImages();
+	}
+	
+	/**
+	 * Procédure relançant l'usine si la simulation est déjà en pause. Ne fait rien sinon.
+	 */
+	public void relancerBornes() {
+		if (!_pause)
+			return;
+		
+		_pause = false;
+		for (int i = 0; i < _voies.size(); i++) {
+			_voies.get(i).relancerUsine();
+		}
+		Fenetre.majImages();
+	}
+	
 }

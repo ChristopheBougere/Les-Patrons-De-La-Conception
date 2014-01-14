@@ -30,10 +30,10 @@ public class Fenetre extends JFrame implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private ArrayList<Borne> _liste_bornes;
-	private ArrayList<JButton> B_bornes;
+	private static ArrayList<Borne> _liste_bornes;
+	private static ArrayList<JButton> B_bornes;
 	private ArrayList<JLabel> L_vehicules;
-	private ArrayList<RapportEvent> _R_rapports;
+	private ArrayList<RapportEvent> R_rapports;
 	private JButton B_parametres;
 	private GridBagLayout GBL_layout;
 	private BorderLayout BL_layout;
@@ -129,7 +129,7 @@ public class Fenetre extends JFrame implements ActionListener {
 		_liste_bornes = new ArrayList<Borne>();
 		B_bornes = new ArrayList<JButton>();
 		L_vehicules = new ArrayList<JLabel>();
-		_R_rapports = new ArrayList<RapportEvent>();
+		R_rapports = new ArrayList<RapportEvent>();
 		
 		GBL_layout = new GridBagLayout();
 		P_bornes = new JPanel(GBL_layout);
@@ -167,12 +167,12 @@ public class Fenetre extends JFrame implements ActionListener {
 		if(_db != null) {
 			_db.dispose();
 		}
-		_db = new DetailBorne(t, numero - 1, _R_rapports);
+		_db = new DetailBorne(t, numero - 1, R_rapports);
 		_db.setLocationRelativeTo(null);
 		_db.setVisible(true);
 	}
 	
-	public void majImages() {
+	public static void majImages() {
 		for(int i = 0; i < _liste_bornes.size(); i++) {
 			ImageIcon im = _liste_bornes.get(i).get_etat().afficherImage();
 			B_bornes.get(i).setIcon(im);
@@ -180,8 +180,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	}
 	
 	public void envoiRapport(RapportEvent r) {
-		majImages();
-		_R_rapports.add(r);
+		R_rapports.add(r);
 		if(_db != null && r.get_numeroVoie() == _db.getNumeroVoie()) {
 			_db.ajouterRapport(r);
 			_db.majInterface();

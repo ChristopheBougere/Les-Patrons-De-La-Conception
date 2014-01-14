@@ -4,6 +4,7 @@ package modele;
 import java.util.Date;
 import java.util.Random;
 
+import vue.Fenetre;
 import modele.AlarmeEvent.TypeAlarme;
 import modele.VehiculeEvent.TypePaiement;
 import modele.VehiculeEvent.TypeVehicule;
@@ -19,16 +20,14 @@ import controleur.VehiculeListener;
  */
 public class Borne implements VehiculeListener {
 	private int _numeroVoie;
-	private BarrierePhysique _barriere;
-	private Feu _feu;
 	private int _compteurVehicules;
 	private AlarmeListener _alarmeListener;
 	private TypeBorne _typeBorne;
-	private final int _aleaManqueMonnaie = 50;
-	private final int _aleaBoutonAlarme = 50;
-	private final int _aleaPaiementRefuse = 50;
-	private final int _aleaPlusieursVehicules = 50;
-	private final int _aleaBarriereNonLevee = 50;
+	private final int _aleaManqueMonnaie = 110;
+	private final int _aleaBoutonAlarme = 80;
+	private final int _aleaPaiementRefuse = 80;
+	private final int _aleaPlusieursVehicules = 160;
+	private final int _aleaBarriereNonLevee = 140;
 	private Parametre _p;
 	private UsineVehicules _usineVehicules;
 	private RapportListener _rapportListener;
@@ -109,8 +108,6 @@ public class Borne implements VehiculeListener {
 
 	public Borne(int numeroVoie, TypeBorne typeBorne, Parametre p) {
 		_numeroVoie = numeroVoie;
-		_barriere = new BarrierePhysique();
-		_feu = new Feu();
 		_compteurVehicules = 0;
 		_typeBorne = typeBorne;
 		_p = p;
@@ -118,7 +115,7 @@ public class Borne implements VehiculeListener {
 		_usineVehicules.addVehiculeListener(this);
 		setListenerActive(true);
 		_usineVehicules.start();
-		_etat = new EtatOuvert();
+		_etat = new EtatFerme();
 	}
 
 	public void setListenerActive (boolean active){
@@ -157,6 +154,7 @@ public class Borne implements VehiculeListener {
 		if (_alarmeListener != null) {
 			AlarmeEvent evt = new AlarmeEvent(this, typeAlarme);
 			_alarmeListener.alarmeDeclenchee(evt,_numeroVoie);
+			stopperUsineEtMettreEnPane();
 		}
 	}
 
@@ -218,6 +216,12 @@ public class Borne implements VehiculeListener {
 		_etat = new EtatFerme();
 	}
 
+	/**
+	 * Tirage d'un nombre pseudo-aléatoirement dans l'intervalle [0, alea - 1]
+	 * 
+	 * @param alea
+	 * @return true si le nombre tiré est alea - 1, false sinon
+	 */
 	public boolean alea(int alea) {
 		return (new Random()).nextInt(alea) == alea - 1;
 	}
@@ -225,6 +229,10 @@ public class Borne implements VehiculeListener {
 	public void stopperUsine() {
 		_usineVehicules.kill();
 		setListenerActive(false);
+	}
+
+	public void stopperUsineEtMettreEnPane() {
+		stopperUsine();
 		_etat = new EtatPanne();
 	}
 
@@ -236,14 +244,56 @@ public class Borne implements VehiculeListener {
 	public void effectuerPaiement() throws InterruptedException {
 		Thread.sleep(1000 * ((new Random()).nextInt(3) + 1));
 	}
-	
+
 	/**
-	 * Attend une demi seconde pour simuler le passage d'un véhicule
+	 * Attend 1 secondes pour simuler le passage d'un véhicule
 	 * 
 	 * @throws InterruptedException
 	 */
 	public void passageVehicule() throws InterruptedException {
-		Thread.sleep(500);
+		Thread.sleep(800);
+	}
+
+
+
+	/**
+	 * Déclenche les alarmes les cas échéants
+	 */
+	public void gestionAlarmes(TypePaiement typePaiement) {
+		if (_typeBorne == TypeBorne.AUTOMATIQUE && alea(_aleaManqueMonnaie)) {
+			declencherAlarme(TypeAlarme.PLUS_DE_MONNAIE);
+
+		} else if (alea(_aleaBoutonAlarme)) {
+			declencherAlarme(TypeAlarme.BOUTON);
+
+		} else if (typePaiement == TypePaiement.ABONNEMENT && alea(_aleaPaiementRefuse)) {
+			declencherAlarme(TypeAlarme.REFUS_PAIEMENT);
+
+		} else if (alea(_aleaPlusieursVehicules)) {
+			declencherAlarme(TypeAlarme.PLUSIEURS_VEHICULES);
+
+		} else if (alea(_aleaBarriereNonLevee)) {
+			declencherAlarme(TypeAlarme.BARRIERE_NON_LEVEE);
+		}
+
+		//return alarme;
+	}
+
+	/**
+	 * 	
+	 * Procédure de passage d'un véhicule, envoie d'un rapport et actualisation
+	 * des icônes d'états des bornes
+	 *
+	 * @param vehicule
+	 * @throws InterruptedException de passageVehicule()
+	 */
+	public void fairePasserVehicule(VehiculeEvent vehicule) throws InterruptedException {
+		_etat = new EtatOuvert();
+		Fenetre.majImages();
+		passageVehicule();
+		envoyerRapport(vehicule);
+		_etat = new EtatFerme();
+		Fenetre.majImages();
 	}
 
 	/**
@@ -254,31 +304,9 @@ public class Borne implements VehiculeListener {
 		if (borneDisponible()) {
 			try {
 				effectuerPaiement();
-				TypePaiement typePaiement = vehicule.typePaiement();
-				if (_typeBorne == TypeBorne.AUTOMATIQUE && alea(_aleaManqueMonnaie)) {
-					declencherAlarme(TypeAlarme.PLUS_DE_MONNAIE);
-					stopperUsine();
-				} else if (alea(_aleaBoutonAlarme)) {
-					declencherAlarme(TypeAlarme.BOUTON);
-					stopperUsine();
-				} else if (typePaiement == TypePaiement.ABONNEMENT && alea(_aleaPaiementRefuse)) {
-					declencherAlarme(TypeAlarme.REFUS_PAIEMENT);
-					stopperUsine();
-				} else if (alea(_aleaPlusieursVehicules)) {
-					declencherAlarme(TypeAlarme.PLUSIEURS_VEHICULES);
-					stopperUsine();
-				} else if (alea(_aleaBarriereNonLevee)) {
-					declencherAlarme(TypeAlarme.BARRIERE_NON_LEVEE);
-					stopperUsine();
-				} else {
-					_feu.feuVert();
-					_barriere.leverBarriere();
-					_etat = new EtatOuvert();
-					passageVehicule();
-					_feu.feuRouge();
-					_barriere.abaisserBarriere();
-					_etat = new EtatFerme();
-					envoyerRapport(vehicule);
+				gestionAlarmes(vehicule.typePaiement());
+				if (borneDisponible()) {
+					fairePasserVehicule(vehicule);
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -289,5 +317,5 @@ public class Borne implements VehiculeListener {
 	public EtatBorne get_etat() {
 		return _etat;
 	}
-	
+
 }

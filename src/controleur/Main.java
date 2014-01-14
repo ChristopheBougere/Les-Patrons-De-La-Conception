@@ -4,10 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import modele.Parametre;
-
 import vue.ChoixBorne;
 import vue.ChoixFlux;
 import vue.Fenetre;
+import vue.FenetrePause;
 
 /**
  * 
@@ -49,7 +49,7 @@ public class Main implements ActionListener {
 					_cf.getpCamions(), _cf.getpCaravanes(), _cf.getpBus(), _cf.getpMotos(), _cf.getFlux());
 			_f.razBornes();
 			_f.setVisible(true);
-			new Superviseur(p, _f);
+			new FenetrePause(new Superviseur(p, _f));
 
 		} else if (e.getSource() == _f.getB_parametres()) {
 			_f.setVisible(false);

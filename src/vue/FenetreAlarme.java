@@ -1,5 +1,3 @@
-
-
 package vue;
 
 import javax.swing.*;

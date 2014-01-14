@@ -25,7 +25,8 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JLabel L_choix, L_pVoitures, L_pCamions, L_pBus, L_pCaravanes, L_pMotos, L_flux, L_erreurSomme;
+	private JLabel L_choix, L_pVoitures, L_pCamions, L_pBus, L_pCaravanes, L_pMotos,
+	L_flux, L_erreurSomme;
 	private JSpinner S_pVoitures, S_pCamions, S_pBus, S_pCaravanes, S_pMotos, S_flux;
 	private JButton B_precedent, B_suivant;
 	private JCheckBox CB_aleatoire;
