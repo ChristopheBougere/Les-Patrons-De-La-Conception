@@ -1,12 +1,14 @@
 package vue;
 
+import java.text.SimpleDateFormat;
+
 import javax.swing.GroupLayout;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
+
 import modele.RapportEvent;
 /**
  * This code was edited or generated using CloudGarden's Jigloo
@@ -67,7 +69,7 @@ public class PanelBorne extends JPanel {
 			}
 			{
 				_heure = new JLabel();
-				_heure.setText("_heure:");
+				_heure.setText("Heure:");
 				_heure.setFont(new java.awt.Font("Dialog",1,12));
 			}
 			{
@@ -83,7 +85,7 @@ public class PanelBorne extends JPanel {
 			}
 			{
 				_somme = new JLabel();
-				_somme.setText("_somme perçue:");
+				_somme.setText("Somme perçue:");
 				_somme.setFont(new java.awt.Font("Dialog",1,12));
 			}
 			{
@@ -149,7 +151,7 @@ public class PanelBorne extends JPanel {
 		_jTextType.setText(r.get_typeVehicule().toString());
 		_jTextNumBorne.setText(String.valueOf(r.get_numeroVoie() + 1));
 		_jTextSomme.setText(String.valueOf(r.get_sommePercue()));
-		_jTextHeure.setText(r.get_heure().toString());
+		_jTextHeure.setText(new SimpleDateFormat("dd/MM/yyyy, Ka").format(r.get_heure()));
 		_jTextTypeBorne.setText(r.get_typeBorne().toString());
 		
 	}
