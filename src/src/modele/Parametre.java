@@ -1,10 +1,10 @@
 package modele;
 
 /**
- * 
  * @author Sofiane BOUKHEBELT
  * @author Christophe BOUGERE
- *
+ * Structure de données qui nous permet de stocker les paramètres 
+ * mises en place par l'utilisateur
  */
 public class Parametre {
 	public int nbManuelles, nbAutomatiques, nbTelepeages;
@@ -13,6 +13,20 @@ public class Parametre {
 	public int flux;
 	public int nbVoies;
 	
+	
+	/**
+	 * Constructeur
+	 * @param nbManuelles
+	 * @param nbAutomatiques
+	 * @param nbTelepeages
+	 * @param pourcentVoitures
+	 * @param pourcentCamions
+	 * @param pourcentCaravanes
+	 * @param pourcentBus
+	 * @param pourcentMotos
+	 * @param pourcentSpeciaux
+	 * @param flux
+	 */
 	public Parametre(int nbManuelles, int nbAutomatiques, int nbTelepeages,
 			int pourcentVoitures, int pourcentCamions, int pourcentCaravanes,
 			int pourcentBus, int pourcentMotos, int pourcentSpeciaux, int flux) {
@@ -31,7 +45,7 @@ public class Parametre {
 	}
 	
 	/**
-	 * 
+	 * Obtenir le nombre de voiture à partir du flux
 	 * @param percent Le pourcentage de véhicules
 	 * @return flux * percent / 100
 	 */
