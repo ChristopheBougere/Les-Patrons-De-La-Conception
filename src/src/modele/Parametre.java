@@ -9,13 +9,13 @@ package modele;
 public class Parametre {
 	public int nbManuelles, nbAutomatiques, nbTelepeages;
 	public int nbVoitures, nbCamions, nbCaravanes,
-	nbBus, nbMotos;
+	nbBus, nbMotos, nbSpeciaux;
 	public int flux;
 	public int nbVoies;
 	
 	public Parametre(int nbManuelles, int nbAutomatiques, int nbTelepeages,
 			int pourcentVoitures, int pourcentCamions, int pourcentCaravanes,
-			int pourcentBus, int pourcentMotos, int flux) {
+			int pourcentBus, int pourcentMotos, int pourcentSpeciaux, int flux) {
 		super();
 		this.flux = flux;
 		this.nbManuelles = nbManuelles;
@@ -26,6 +26,7 @@ public class Parametre {
 		nbCaravanes = percentToNumber(pourcentCaravanes);
 		nbBus = percentToNumber(pourcentBus);
 		nbMotos = percentToNumber(pourcentMotos);
+		nbSpeciaux = percentToNumber(pourcentSpeciaux);
 		nbVoies = this.nbManuelles + this.nbAutomatiques + this.nbTelepeages;
 	}
 	

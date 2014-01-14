@@ -46,7 +46,7 @@ public class Main implements ActionListener {
 		} else if(e.getSource() == _cf.getB_suivant()) {
 			_cf.setVisible(false);
 			Parametre p = new Parametre(_cb.getNbMannuelles(), _cb.getNbAutomatiques(), _cb.getNbTelepeages(), _cf.getpVoitures(),
-					_cf.getpCamions(), _cf.getpCaravanes(), _cf.getpBus(), _cf.getpMotos(), _cf.getFlux());
+					_cf.getpCamions(), _cf.getpCaravanes(), _cf.getpBus(), _cf.getpMotos(), _cf.getpSpeciaux(), _cf.getFlux());
 			_f.razBornes();
 			_f.setVisible(true);
 			new FenetrePause(new Superviseur(p, _f));

@@ -25,13 +25,13 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JLabel L_choix, L_pVoitures, L_pCamions, L_pBus, L_pCaravanes, L_pMotos,
+	private JLabel L_choix, L_pVoitures, L_pCamions, L_pBus, L_pCaravanes, L_pMotos, L_pSpeciaux,
 	L_flux, L_erreurSomme;
-	private JSpinner S_pVoitures, S_pCamions, S_pBus, S_pCaravanes, S_pMotos, S_flux;
+	private JSpinner S_pVoitures, S_pCamions, S_pBus, S_pCaravanes, S_pMotos, S_pSpeciaux, S_flux;
 	private JButton B_precedent, B_suivant;
 	private JCheckBox CB_aleatoire;
 	private BoxLayout BL;
-	private JPanel P_voitures, P_camions, P_bus, P_caravanes, P_motos, P_flux, P_boutons;
+	private JPanel P_voitures, P_camions, P_bus, P_caravanes, P_motos, P_speciaux, P_flux, P_boutons;
 	
 	public ChoixFlux() {
 		super("Choix des flux");
@@ -43,6 +43,7 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 		L_pBus = new JLabel("Pourcentage de bus");
 		L_pCaravanes = new JLabel("Pourcentage de caravanes");
 		L_pMotos = new JLabel("Pourcentage de motos");
+		L_pSpeciaux = new JLabel("Pourcentage de spéciaux");
 		L_flux = new JLabel("Flux (véhicule/minute)");
 		L_erreurSomme = new JLabel();
 		L_erreurSomme.setForeground(Color.RED);
@@ -55,7 +56,7 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 		S_pVoitures.setEditor(NE_pVoitures);
 		NE_pVoitures.getModel().setMinimum(0);
 		NE_pVoitures.getModel().setMaximum(100);
-		NE_pVoitures.getModel().setValue(50);
+		NE_pVoitures.getModel().setValue(40);
 		S_pVoitures.addChangeListener(this);
 		
 		S_pCamions = new JSpinner();
@@ -89,6 +90,14 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 		NE_pMotos.getModel().setMaximum(100);
 		NE_pMotos.getModel().setValue(10);
 		S_pMotos.addChangeListener(this);
+		
+		S_pSpeciaux = new JSpinner();
+		JSpinner.NumberEditor NE_pSpeciaux = new JSpinner.NumberEditor(S_pSpeciaux);
+		S_pSpeciaux.setEditor(NE_pSpeciaux);
+		NE_pSpeciaux.getModel().setMinimum(0);
+		NE_pSpeciaux.getModel().setMaximum(100);
+		NE_pSpeciaux.getModel().setValue(10);
+		S_pSpeciaux.addChangeListener(this);
 		
 		S_flux = new JSpinner();
 		JSpinner.NumberEditor NE_flux = new JSpinner.NumberEditor(S_flux);
@@ -131,6 +140,11 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 		P_motos.add(L_pMotos);
 		P_motos.add(S_pMotos);
 		
+		P_speciaux = new JPanel();
+		P_speciaux.setLayout(new FlowLayout());
+		P_speciaux.add(L_pSpeciaux);
+		P_speciaux.add(S_pSpeciaux);
+		
 		P_flux = new JPanel();
 		P_flux.setLayout(new FlowLayout());
 		P_flux.add(L_flux);
@@ -148,6 +162,7 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 		getContentPane().add(P_bus);
 		getContentPane().add(P_caravanes);
 		getContentPane().add(P_motos);
+		getContentPane().add(P_speciaux);
 		getContentPane().add(P_flux);
 		getContentPane().add(L_erreurSomme);
 		getContentPane().add(P_boutons);
@@ -174,13 +189,15 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 				S_pBus.setEnabled(false);
 				S_pCaravanes.setEnabled(false);
 				S_pMotos.setEnabled(false);
+				S_pSpeciaux.setEnabled(false);
 				S_flux.setEnabled(false);
 				
-				S_pVoitures.setValue(50);
+				S_pVoitures.setValue(40);
 				S_pCamions.setValue(10);
 				S_pBus.setValue(20);
 				S_pCaravanes.setValue(10);
 				S_pMotos.setValue(10);
+				S_pSpeciaux.setValue(10);
 				S_flux.setValue(10);
 			} else {
 				S_pVoitures.setEnabled(true);
@@ -188,6 +205,7 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 				S_pBus.setEnabled(true);
 				S_pCaravanes.setEnabled(true);
 				S_pMotos.setEnabled(true);
+				S_pSpeciaux.setEnabled(true);
 				S_flux.setEnabled(true);
 			}
 		}
@@ -195,7 +213,7 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 
 	@Override
 	public void stateChanged(ChangeEvent e) {
-		if((int) S_pVoitures.getValue() + (int) S_pCamions.getValue() + (int) S_pBus.getValue() + (int) S_pCaravanes.getValue() + (int) S_pMotos.getValue() != 100) {
+		if((int) S_pVoitures.getValue() + (int) S_pCamions.getValue() + (int) S_pBus.getValue() + (int) S_pCaravanes.getValue() + (int) S_pMotos.getValue() + (int) S_pSpeciaux.getValue() != 100) {
 			B_suivant.setEnabled(false);
 			L_erreurSomme.setText("La somme des pourcentages ne vaut pas 100!");
 		} else {
@@ -222,6 +240,10 @@ public class ChoixFlux extends JFrame implements ActionListener, ChangeListener 
 	
 	public int getpMotos() {
 		return (int)S_pMotos.getValue();
+	}
+	
+	public int getpSpeciaux() {
+		return (int)S_pSpeciaux.getValue();
 	}
 	
 	public int getFlux() {
