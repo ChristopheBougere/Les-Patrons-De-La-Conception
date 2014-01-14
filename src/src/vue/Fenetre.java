@@ -53,6 +53,12 @@ public class Fenetre extends JFrame implements ActionListener {
 		this.pack();
 	}
 	
+	/**
+	 * Permet de générer le texte d'un bouton pour une borne
+	 * @param type Type de borne
+	 * @param numero Numéro de la borne
+	 * @return Retourne la chaine de caractères correspondant à une borne
+	 */
 	public String texteBouton(TypeBorne type, int numero) {
 		String texte = "B";
 		switch(type){
@@ -70,6 +76,11 @@ public class Fenetre extends JFrame implements ActionListener {
 		return texte;
 	}
 	
+	/**
+	 * Permet d'ajouter une borne
+	 * @param type Type de borne
+	 * @param b La borne modèle
+	 */
 	public void ajouterBorne(TypeBorne type, Borne b) {
 		_liste_bornes.add(b);
 		int numero = B_bornes.size() + 1;
@@ -96,35 +107,9 @@ public class Fenetre extends JFrame implements ActionListener {
 		this.setLocationRelativeTo(null);
 	}
 	
-	public void retirerBorne(int numero) {
-		/*
-		// On enlève les éléments du GridBagLayout
-		P_bornes.remove(B_bornes.get(numero));
-		P_bornes.remove(L_vehicules.get(numero));
-		// On supprime le bouton
-		B_bornes.remove(numero);
-		// On décale les numéros
-		for(int i = numero; i < B_bornes.size(); i++) {
-			TypeBorne type = TypeBorne.MANUELLE;
-			switch(B_bornes.get(i).getText().charAt(1)) {
-			case 'M':
-				type = TypeBorne.MANUELLE;
-				break;
-			case 'A':
-				type = TypeBorne.AUTOMATIQUE;
-				break;
-			case 'T':
-				type = TypeBorne.TELEPEAGE;
-			}
-			B_bornes.get(i).setText(texteBouton(type, i + 1));
-		}
-		// On supprime le label
-		L_vehicules.remove(numero);
-		// On repack la fenêtre
-		this.pack();
-		*/
-	}
-	
+	/**
+	 * Permet de supprimer toutes les bornes
+	 */
 	public void razBornes() {
 		_liste_bornes = new ArrayList<Borne>();
 		B_bornes = new ArrayList<JButton>();
@@ -152,6 +137,9 @@ public class Fenetre extends JFrame implements ActionListener {
 		return B_parametres;
 	}
 
+	/**
+	 * Affiche les détails d'une borne
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Quand on clique sur une borne, on veut les détails
@@ -172,6 +160,9 @@ public class Fenetre extends JFrame implements ActionListener {
 		_db.setVisible(true);
 	}
 	
+	/**
+	 * Met à jour le statut des bornes (images)
+	 */
 	public static void majImages() {
 		for(int i = 0; i < _liste_bornes.size(); i++) {
 			ImageIcon im = _liste_bornes.get(i).get_etat().afficherImage();
@@ -179,6 +170,10 @@ public class Fenetre extends JFrame implements ActionListener {
 		}
 	}
 	
+	/**
+	 * Méthode appellée dès qu'un rapport est envoyé, on l'ajoute donc à DetailBorne
+	 * @param r Le rapport envoyé
+	 */
 	public void envoiRapport(RapportEvent r) {
 		if(r == null) {
 			System.out.println("ERREUR LE RAPPORT EST NUL");

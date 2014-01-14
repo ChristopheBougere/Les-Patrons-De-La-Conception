@@ -17,6 +17,7 @@ import modele.RapportEvent;
 
 
 /**
+ * Fenêtre permettant de voir le détail d'une borne, c-à-d les rapports passés.
  * @author Christophe Bougère et Baraa Elyoussefi
  *
  */

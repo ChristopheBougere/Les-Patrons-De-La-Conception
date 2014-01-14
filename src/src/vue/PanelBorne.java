@@ -23,6 +23,7 @@ import modele.RapportEvent;
  * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
 /**
+ * Cette classe permet d'afficher le détail d'un rapoprt de manière graphique.
  * @author christophe
  *
  */
@@ -147,6 +148,10 @@ public class PanelBorne extends JPanel {
 		}
 	}
 	
+	/**
+	 * Met à jour le panel avec un nouveau rapport
+	 * @param r Le rapport d'origine.
+	 */
 	public void mettreAJour( RapportEvent r){
 		_jTextType.setText(r.get_typeVehicule().toString());
 		_jTextNumBorne.setText(String.valueOf(r.get_numeroVoie() + 1));
