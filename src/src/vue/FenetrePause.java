@@ -57,7 +57,7 @@ public class FenetrePause extends javax.swing.JFrame implements ActionListener {
 				getContentPane().add(_pannel, "Center");
 				_pannel.setLayout(null);
 				_pannel.setPreferredSize(new java.awt.Dimension(267, 134));
-				_pannel.setBounds(0, 0, 283, 150);
+				_pannel.setBounds(0, 0, 350, 150);
 				{
 					_pauseButton = new JButton();
 					_pannel.add(_pauseButton);
@@ -69,7 +69,7 @@ public class FenetrePause extends javax.swing.JFrame implements ActionListener {
 					_relancerButton = new JButton();
 					_pannel.add(_relancerButton);
 					_relancerButton.setText("Relancer");
-					_relancerButton.setBounds(158, 54, 89, 41);
+					_relancerButton.setBounds(158, 54, 155, 41);
 					_relancerButton.addActionListener(this);
 				}
 				{
@@ -80,7 +80,7 @@ public class FenetrePause extends javax.swing.JFrame implements ActionListener {
 				}
 			}
 			pack();
-			this.setSize(289, 180);
+			this.setSize(350, 180);
 			this.setLocation(0, 0);
 		} catch (Exception e) {
 		    //add your error handling code here
