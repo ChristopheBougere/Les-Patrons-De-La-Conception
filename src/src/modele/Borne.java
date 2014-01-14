@@ -204,7 +204,7 @@ public class Borne implements VehiculeListener {
 			}
 			double somme=coeff*prixParKm*nombreKm;
 			RapportEvent rapport = new RapportEvent(this, vehicule.typeVehicule(), _numeroVoie,
-					new Date(), somme, _typeBorne, vehicule.typePaiement());
+					new Date(), Math.round(somme * 100.0) / 100.0, _typeBorne, vehicule.typePaiement());
 			_rapportListener.rapportEnvoye(rapport);
 			System.out.println(rapport);
 		}
