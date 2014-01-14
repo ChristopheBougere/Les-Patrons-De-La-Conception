@@ -23,7 +23,11 @@ import vue.FenetreAlarme;
  * @author Christophe BOUGERE
  * @author Walid IBARBACHANE
  *
- */
+ * Cette classe décide de l'ouverture d'une voie
+ * et de sa fermeture. Elle reçoit et traite les 
+ * alarmes également. 
+ *
+ **/
 public class Superviseur implements AlarmeListener, RapportListener, ActionListener {
 	
 	private Fenetre _f;
@@ -36,6 +40,12 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 	 */
 	private boolean _pause;
 
+	
+	/**
+	 * Constucteur 
+	 * @param p
+	 * @param f
+	 */
 	public Superviseur(Parametre p, Fenetre f){
 		_p = p;
 		_f = f;
@@ -61,10 +71,20 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 		_pause = false;
 	}
 
+	
+	/**
+	 * Accesseur 
+	 * @return _voies.size
+	 */
 	public int getNbVoiesOuvertes(){
 		return _voies.size();
 	}
 
+	
+	/**
+	 * @param t
+	 * Ouvrir une voie
+	 */
 	public void ouvrirVoie(TypeBorne t) {
 		Borne voie = new Borne(_voies.size(), t, _p);
 
@@ -74,6 +94,10 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 		_f.ajouterBorne(t, voie);
 	}
 	
+	/**
+	 * @param Voie
+	 * Ferme une voie
+	 */
 	public void fermerVoie(Borne voie){
 		_voies.remove(voie);
 	}
@@ -88,7 +112,10 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 	}
 	
 	/**
-	 * On ouvre une fenêtre pour notifier de l'alarme
+	 * @param event
+	 * @param numeroVoie
+	 * 
+	 * On ouvre une fenêtre pour indiquer qu'une alarme a été déclenchée
 	 * Puis on ajoute l'actionListener pour détecter l'appuie sur le bouton "OK"
 	 */
 	public void ajouterEtAfficherFenetre(AlarmeEvent event, int numeroVoie) {
@@ -98,6 +125,8 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 	}
 	
 	/**
+	 * @param e
+	 * @param numVoie
 	 * Affiche une fenêtre d'alarme avec son message lorsque celle-ci est déclenchée
 	 */
 	@Override
@@ -109,23 +138,36 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 			
 			@Override
 			public void run() {
-				if( _fa.size() < 6){
-					ajouterEtAfficherFenetre(event, numeroVoie);
-				}
+				ajouterEtAfficherFenetre(event, numeroVoie);
 			}
 		});
 		
 	}
-	
+	/**
+	 * Accesseur de la donnée membre _p
+	 * @return _p
+	 */
 	public Parametre getParametres() {
 		return _p;
 	}
 
+
+	
+	/**
+	 * @param r
+	 * Envoie un rapport lorsqu'un event est détecté
+	 */
 	@Override
 	public void rapportEnvoye(RapportEvent r) {
 		_f.envoiRapport(r);
 	}
 
+	
+	/**
+	 * @param e
+	 * Procédure qui relance une borne fermée par une alarme 
+	 * et qui ferme la fenêtre de l'alarme en appuyant sur "OK"
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		for ( FenetreAlarme fa : _fa.keySet() ) {
