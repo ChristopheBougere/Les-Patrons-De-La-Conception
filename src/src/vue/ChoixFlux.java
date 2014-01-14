@@ -16,7 +16,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 /**
- * 
+ * Fenêtre permettant de choisir le flux de véhicules et le pourcentage de chaque type de véhicule.
  * @author Christophe Bougère
  *
  */

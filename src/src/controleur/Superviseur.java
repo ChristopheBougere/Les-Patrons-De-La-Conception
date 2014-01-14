@@ -165,7 +165,7 @@ public class Superviseur implements AlarmeListener, RapportListener, ActionListe
 	
 	/**
 	 * @param e
-	 * Procédure qui relance une borne fermée par une alarme 
+	 * Procédure qui relance une borne en arrêt par une alarme 
 	 * et qui ferme la fenêtre de l'alarme en appuyant sur "OK"
 	 */
 	@Override

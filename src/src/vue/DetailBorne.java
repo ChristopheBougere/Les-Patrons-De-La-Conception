@@ -16,6 +16,10 @@ import modele.Borne.TypeBorne;
 import modele.RapportEvent;
 
 
+/**
+ * @author Christophe Bougère et Baraa Elyoussefi
+ *
+ */
 public class DetailBorne extends JFrame implements ListSelectionListener {
 
 	/**

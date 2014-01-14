@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 
 /**
- * 
+ * Fenêtre permettant le choisir le nombre de bornes de chaque type
  * @author Christophe Bougère
  *
  */

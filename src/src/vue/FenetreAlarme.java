@@ -16,7 +16,7 @@ import javax.swing.*;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 /**
- * 
+ * Simple fenêtre permettant d'afficher une alarme avec un bouton OK.
  * @author Ghita BAOUZ
  * @author Baraa EL YOUSSEFI
  * @author Sofiane BOUKHEBELT
