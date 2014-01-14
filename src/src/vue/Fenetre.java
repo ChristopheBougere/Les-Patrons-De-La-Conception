@@ -21,7 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 /**
- * 
+ * Fenêtre principale de l'application
  * @author Christophe Bougère
  *
  */

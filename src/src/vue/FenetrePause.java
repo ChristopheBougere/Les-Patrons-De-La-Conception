@@ -24,7 +24,7 @@ import javax.swing.JPanel;
 * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
 */
 /**
- * 
+ * Cette fenêtre permet de mettre en pause l'application, et de la relancer.
  * @author SofianeBoukhebelt
  *
  */
