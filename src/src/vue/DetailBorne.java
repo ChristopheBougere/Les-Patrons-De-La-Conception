@@ -38,12 +38,14 @@ public class DetailBorne extends JFrame implements ListSelectionListener {
 		_panel = new PanelBorne();
 		
 		// On remplir l'arraylist avec uniquement les _rapports de cette voie
-		Iterator<RapportEvent> it = r.iterator();
-		while (it.hasNext()) {
-		       RapportEvent re = it.next();
-		       if(re.get_numeroVoie() == i) {
-			       _rapports.add(re);
-		       }
+		if(r.size() > 0) {
+			Iterator<RapportEvent> it = r.iterator();
+			while (it.hasNext()) {
+			       RapportEvent re = it.next();
+			       if(re != null && re.get_numeroVoie() == i) {
+				       _rapports.add(re);
+			       }
+			}
 		}
 		majInterface();
 	}

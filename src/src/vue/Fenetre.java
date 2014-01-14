@@ -180,11 +180,15 @@ public class Fenetre extends JFrame implements ActionListener {
 	}
 	
 	public void envoiRapport(RapportEvent r) {
-		R_rapports.add(r);
-		if(_db != null && r.get_numeroVoie() == _db.getNumeroVoie()) {
-			_db.ajouterRapport(r);
-			_db.majInterface();
+		if(r == null) {
+			System.out.println("ERREUR LE RAPPORT EST NUL");
+		} else {
+			R_rapports.add(r);
+			if(_db != null && r.get_numeroVoie() == _db.getNumeroVoie()) {
+				_db.ajouterRapport(r);
+				_db.majInterface();
+			}
+			L_vehicules.get(r.get_numeroVoie()).setText(r.get_typeVehicule().toString().toLowerCase());
 		}
-		L_vehicules.get(r.get_numeroVoie()).setText(r.get_typeVehicule().toString().toLowerCase());
 	}
 }

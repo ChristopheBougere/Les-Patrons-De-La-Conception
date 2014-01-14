@@ -81,6 +81,7 @@ public class FenetrePause extends javax.swing.JFrame implements ActionListener {
 			}
 			pack();
 			this.setSize(289, 180);
+			this.setLocation(0, 0);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
