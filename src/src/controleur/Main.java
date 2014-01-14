@@ -47,6 +47,10 @@ public class Main implements ActionListener {
 			_cf.setVisible(false);
 			Parametre p = new Parametre(_cb.getNbMannuelles(), _cb.getNbAutomatiques(), _cb.getNbTelepeages(), _cf.getpVoitures(),
 					_cf.getpCamions(), _cf.getpCaravanes(), _cf.getpBus(), _cf.getpMotos(), _cf.getpSpeciaux(), _cf.getFlux());
+
+			_f = new Fenetre();
+			_f.getB_parametres().addActionListener(this);
+			_f.setLocationRelativeTo(null);
 			_f.razBornes();
 			_f.setVisible(true);
 			new FenetrePause(new Superviseur(p, _f));
